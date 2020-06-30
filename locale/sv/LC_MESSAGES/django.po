@@ -45,137 +45,142 @@ msgstr ""
 msgid ""
 "You are not allowed to edit this comment, because you are not the author of "
 "the comment."
-msgstr ""
+msgstr "Du kan inte redigera den här kommentaren eftersom du inte har skrivit den själv."
+
+#: signbank/comments.py:144
+msgid ""
+"Username"
+msgstr "Användarnamn"
 
 #: signbank/comments.py:159
 msgid ""
 "You are not allowed to edit tags of this comment, because you are not the "
 "author of the comment."
-msgstr ""
+msgstr "Du kan inte redigera den här kommentarens taggar eftersom du inte skrivit kommentaren själv."
 
 #: signbank/comments.py:219
 msgid "mentioned you in a comment"
-msgstr ""
+msgstr "nämnde dig i en kommentar"
 
 #: signbank/customregistration/forms.py:19
 msgid "I have read and agree to the Terms of Service"
-msgstr ""
+msgstr "Jag har läst och accepterar användarvillkoren."
 
 #: signbank/customregistration/signals.py:14
 msgid "created an account."
-msgstr ""
+msgstr "skapade ett konto"
 
 #: signbank/customregistration/signals.py:16
 msgid "created an account"
-msgstr ""
+msgstr "skapade ett konto"
 
 #: signbank/customregistration/signals.py:16
 msgid "Email"
-msgstr ""
+msgstr "Epost"
 
 #: signbank/dictionary/admin.py:25
 msgid "Tag"
-msgstr ""
+msgstr "Tagg"
 
 #: signbank/dictionary/admin.py:91 signbank/dictionary/forms.py:166
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:138
 msgid "Relation type"
-msgstr ""
+msgstr "Relationstyp"
 
 #: signbank/dictionary/admin.py:92
 msgid "Relation types"
-msgstr ""
+msgstr "Relationstyper"
 
 #: signbank/dictionary/admin.py:110 signbank/dictionary/models.py:584
 msgid "Gloss relation"
-msgstr ""
+msgstr "Glosrelation"
 
 #: signbank/dictionary/admin.py:111 signbank/dictionary/models.py:585
 #: signbank/dictionary/templates/dictionary/gloss_detail_relations.html:5
 msgid "Gloss relations"
-msgstr ""
+msgstr "Glosrelationer"
 
 #: signbank/dictionary/admin.py:156
 msgid "Publish selected glosses"
-msgstr ""
+msgstr "Publicera valda glosor"
 
 #: signbank/dictionary/admin.py:157
 msgid "Unpublish selected glosses"
-msgstr ""
+msgstr "Avpublicera valda glosor"
 
 #: signbank/dictionary/admin.py:168
 msgid "Exclude glosses from ECV"
-msgstr ""
+msgstr "Exkludera glosor från ECV"
 
 #: signbank/dictionary/admin.py:169
 msgid "Include glosses in ECV"
-msgstr ""
+msgstr "Inkludera glosor i ECV"
 
 #: signbank/dictionary/admin.py:178
 msgid "Created/Updated"
-msgstr ""
+msgstr "Skapad/uppdaterad"
 
 #: signbank/dictionary/admin.py:179
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:105
 msgid "Phonology"
-msgstr ""
+msgstr "Fonologi"
 
 #: signbank/dictionary/admin.py:187
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:125
 msgid "Semantics"
-msgstr ""
+msgstr "Semantik"
 
 #: signbank/dictionary/admin.py:189
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:324
 msgid "Frequency"
-msgstr ""
+msgstr "Frekvens"
 
 #: signbank/dictionary/adminviews.py:77
 msgid "You do not have permissions to export to CSV."
-msgstr ""
+msgstr "Du har inte behörighet att exportera till CSV."
 
 #: signbank/dictionary/adminviews.py:405
 msgid "You do not have permissions to view glosses of this dataset."
-msgstr ""
+msgstr "Du har inte behörighet att se glosorna i den här datamängden."
 
 #. Translators: RELATION_ROLE_CHOICES
 #: signbank/dictionary/choicelists.py:529
 msgid "Homonym"
-msgstr ""
+msgstr "Homonym"
 
 #. Translators: RELATION_ROLE_CHOICES
 #: signbank/dictionary/choicelists.py:531
 msgid "Synonym"
-msgstr ""
+msgstr "Synonym"
 
 #. Translators: RELATION_ROLE_CHOICES
 #: signbank/dictionary/choicelists.py:533
 msgid "Variant"
-msgstr ""
+msgstr "Variant"
 
 #. Translators: RELATION_ROLE_CHOICES
 #: signbank/dictionary/choicelists.py:535
 msgid "Antonym"
-msgstr ""
+msgstr "Antonym"
 
 #. Translators: RELATION_ROLE_CHOICES
 #: signbank/dictionary/choicelists.py:537
 msgid "Hyponym"
-msgstr ""
+msgstr "Hyponym"
 
 #. Translators: RELATION_ROLE_CHOICES
 #: signbank/dictionary/choicelists.py:539
 msgid "Hypernym"
-msgstr ""
+msgstr "Hypernym"
 
 #. Translators: RELATION_ROLE_CHOICES
 #: signbank/dictionary/choicelists.py:541
 msgid "See Also"
-msgstr ""
+msgstr "Se även"
 
 #: signbank/dictionary/delete.py:19 signbank/dictionary/update.py:487
 msgid "You do not have permissions to add tags to glosses of this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att lägga till taggar till glosor i det här lexikonet."
 
 #. Translators: GlossSearchForm label
 #: signbank/dictionary/forms.py:21 signbank/dictionary/forms.py:75
@@ -185,32 +190,32 @@ msgstr ""
 #: signbank/video/templates/addvideos.html:32
 #: signbank/video/templates/uploaded_glossvideos.html:16
 msgid "Dataset"
-msgstr ""
+msgstr "Datamängd"
 
 #. Translators: exception ValidationError
 #: signbank/dictionary/forms.py:37
 msgid ""
 "This Gloss value already exists in the chosen Dataset. Please choose another "
 "value for Gloss."
-msgstr ""
+msgstr "Det här glosvärdet finns redan i den valda datamängden. Du måste välja ett annat värde för glosan."
 
 #: signbank/dictionary/forms.py:67
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:188
 #: signbank/dictionary/templates/dictionary/glosstags.html:5
 msgid "Tags"
-msgstr ""
+msgstr "Taggar"
 
 #. Translators: GlossSearchForm label
 #: signbank/dictionary/forms.py:77 signbank/dictionary/forms.py:276
 #: signbank/dictionary/models.py:33 signbank/dictionary/models.py:201
 #: signbank/dictionary/models.py:212 signbank/dictionary/publicviews.py:106
 msgid "Sign language"
-msgstr ""
+msgstr "Teckenspråk"
 
 #: signbank/dictionary/forms.py:80 signbank/dictionary/forms.py:156
 #: templates/comments/search_comments.html:13
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 #. Translators: GlossSearchForm label
 #. Translators: Gloss field: idgloss, verbose name
@@ -225,7 +230,7 @@ msgstr ""
 #: signbank/video/models.py:49
 #: signbank/video/templates/uploaded_glossvideos.html:60
 msgid "Gloss"
-msgstr ""
+msgstr "Glosa"
 
 #. Translators: GlossSearchForm label
 #. Translators: Gloss field: idgloss_en (english), verbose name
@@ -233,34 +238,34 @@ msgstr ""
 #: signbank/dictionary/forms.py:84 signbank/dictionary/models.py:328
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:184
 msgid "Gloss in English"
-msgstr ""
+msgstr "Engelsk glosa"
 
 #. Translators: GlossSearchForm label
 #: signbank/dictionary/forms.py:86
 msgid "Translations"
-msgstr ""
+msgstr "Översättning"
 
 #. Translators: GlossSearchForm label
 #: signbank/dictionary/forms.py:88
 msgid "Choose language"
-msgstr ""
+msgstr "Välj språk"
 
 #: signbank/dictionary/forms.py:97
 msgid "Is published"
-msgstr ""
+msgstr "Är publicerad"
 
 #. Translators: GlossSearchForm label
 #: signbank/dictionary/forms.py:100
 msgid "Has videos"
-msgstr ""
+msgstr "Har videor"
 
 #: signbank/dictionary/forms.py:101
 msgid "No videos"
-msgstr ""
+msgstr "Har ingen video"
 
 #: signbank/dictionary/forms.py:102
 msgid "Multiple videos"
-msgstr ""
+msgstr "Har flera videor"
 
 #. Translators: GlossSearchForm label
 #. Translators: RelationForm label
@@ -269,24 +274,24 @@ msgstr ""
 #: signbank/dictionary/forms.py:212
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:134
 msgid "Source Gloss"
-msgstr ""
+msgstr "Källglosa"
 
 #. Translators: GlossSearchForm label
 #. Translators: RelationForm label
 #: signbank/dictionary/forms.py:160 signbank/dictionary/forms.py:196
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:136
 msgid "Target Gloss"
-msgstr ""
+msgstr "Målglosa"
 
 #: signbank/dictionary/forms.py:179
 msgid "Relation type:"
-msgstr ""
+msgstr "Relationstyp"
 
 #. Translators:
 #: signbank/dictionary/forms.py:198 signbank/dictionary/forms.py:232
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:22
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #. Translators: RelationToForeignSignForm label
 #. Translators: RelationToForeignSign field verbose name
@@ -295,261 +300,261 @@ msgstr ""
 #: signbank/dictionary/forms.py:215 signbank/dictionary/models.py:237
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:238
 msgid "Related Language"
-msgstr ""
+msgstr "Relaterat språk"
 
 #. Translators: RelationToForeignSignForm label
 #: signbank/dictionary/forms.py:217
 msgid "Gloss in Related Language"
-msgstr ""
+msgstr "Glosa i relaterat språk"
 
 #. Translators: MorphologyForm label
 #: signbank/dictionary/forms.py:227
 msgid "Parent Gloss"
-msgstr ""
+msgstr "Överordnad glosa"
 
 #. Translators: MorphologyForm label
 #. Translators:
 #: signbank/dictionary/forms.py:238
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:24
 msgid "Morpheme"
-msgstr ""
+msgstr "Morfem"
 
 #: signbank/dictionary/forms.py:252
 msgid "Must be a CSV file with .csv extension."
-msgstr ""
+msgstr "Måste vara en CSV-fil med filändelse '.csv'"
 
 #. Translators: Placeholder text in a search textfield
 #: signbank/dictionary/forms.py:264 signbank/dictionary/forms.py:265
 #: templates/menu.html:68
 msgid "Search gloss"
-msgstr ""
+msgstr "Sök glosor"
 
 #: signbank/dictionary/forms.py:266 signbank/dictionary/forms.py:267
 msgid "Search translation equivalent"
-msgstr ""
+msgstr "Sök översättning"
 
 #: signbank/dictionary/forms.py:275
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:81
 msgid "All sign languages"
-msgstr ""
+msgstr "Alla teckenspråk"
 
 #: signbank/dictionary/forms.py:278
 msgid "You can restrict your search to these lexicons"
-msgstr ""
+msgstr "Du kan avgränsa sökningen till de här lexikonen"
 
 #: signbank/dictionary/models.py:27
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: signbank/dictionary/models.py:29
 msgid "Public name"
-msgstr ""
+msgstr "Publikt namn"
 
 #: signbank/dictionary/models.py:31
 msgid "Is public"
-msgstr ""
+msgstr "Är publik"
 
 #: signbank/dictionary/models.py:31
 msgid "Is this dataset is public or private?"
-msgstr ""
+msgstr "Är den här datamängden publik eller privat?"
 
 #: signbank/dictionary/models.py:35
 msgid "Translation equivalent languages"
-msgstr ""
+msgstr "Språk med översättningar"
 
 #: signbank/dictionary/models.py:36
 msgid "These languages are options for translation equivalents."
-msgstr ""
+msgstr "Dessa språk är tillgängliga för översättningar"
 
 #: signbank/dictionary/models.py:38
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:23
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:61
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #: signbank/dictionary/models.py:40
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:25
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:63
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: signbank/dictionary/models.py:42
 msgid "Admins"
-msgstr ""
+msgstr "Administratörer"
 
 #: signbank/dictionary/models.py:46
 msgid "Access dataset"
-msgstr ""
+msgstr "Skapa tillgång till datamängd"
 
 #: signbank/dictionary/models.py:48 templates/infopage.html:110
 msgid "Lexicon"
-msgstr ""
+msgstr "Lexikon"
 
 #: signbank/dictionary/models.py:49
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:109
 #: templates/menu.html:58
 msgid "Lexicons"
-msgstr ""
+msgstr "Lexikon"
 
 #: signbank/dictionary/models.py:62 signbank/dictionary/models.py:132
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 #: signbank/dictionary/models.py:68
 msgid "Gloss translation field"
-msgstr ""
+msgstr "Fält med glosöversättning"
 
 #: signbank/dictionary/models.py:69
 msgid "Gloss translation fields"
-msgstr ""
+msgstr "Fält med glosöversättningar"
 
 #: signbank/dictionary/models.py:134 signbank/dictionary/models.py:157
 msgid "Keyword"
-msgstr ""
+msgstr "Nyckelord"
 
 #: signbank/dictionary/models.py:141
 msgid "Translation equivalent"
-msgstr ""
+msgstr "Översättning"
 
 #: signbank/dictionary/models.py:142
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:186
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:49
 #: templates/infopage.html:50 templates/infopage.html:140
 msgid "Translation equivalents"
-msgstr ""
+msgstr "Översättningar"
 
 #: signbank/dictionary/models.py:158
 msgid "Keywords"
-msgstr ""
+msgstr "Nyckelord"
 
 #: signbank/dictionary/models.py:174
 msgid "ISO 639-1 language code (2 characters long) of a written language."
-msgstr ""
+msgstr "ISO 639-1 språkkod (2 bokstäver) för ett skrivet språk."
 
 #: signbank/dictionary/models.py:177
 msgid "ISO 639-3 language code (3 characters long) of a written language."
-msgstr ""
+msgstr "ISO 639-3 språkkod (3 bokstäver) för ett skrivet språk."
 
 #: signbank/dictionary/models.py:183
 msgid "Written language"
-msgstr ""
+msgstr "Skrivet språk"
 
 #: signbank/dictionary/models.py:184
 msgid "Written languages"
-msgstr ""
+msgstr "Skrivna språk"
 
 #: signbank/dictionary/models.py:197
 msgid "ISO 639-3 language code (3 characters long) of a sign language."
-msgstr ""
+msgstr "ISO 639-3 språkkod (3 bokstäver) för ett teckenspråk."
 
 #: signbank/dictionary/models.py:202
 msgid "Sign languages"
-msgstr ""
+msgstr "Teckenspråk"
 
 #: signbank/dictionary/models.py:220
 msgid "Dialect"
-msgstr ""
+msgstr "Dialekt"
 
 #: signbank/dictionary/models.py:221
 msgid "Dialects"
-msgstr ""
+msgstr "Dialekter"
 
 #. Translators: RelationToForeignSign field verbose name
 #. : Boolean: Is this a loan sign?
 #: signbank/dictionary/models.py:234
 msgid "Loan Sign"
-msgstr ""
+msgstr "Lånat tecken"
 
 #. Translators: Equivalent Gloss in related language
 #: signbank/dictionary/models.py:241
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:240
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:306
 msgid "Gloss in related language"
-msgstr ""
+msgstr "Glosa i relaterat språk"
 
 #: signbank/dictionary/models.py:245
 msgid "Relation to Foreign Sign"
-msgstr ""
+msgstr "Relation till främmande tecken"
 
 #: signbank/dictionary/models.py:246
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:228
 msgid "Relations to Foreign Signs"
-msgstr ""
+msgstr "Relationer till främmande tecken"
 
 #: signbank/dictionary/models.py:272
 msgid "Field choice"
-msgstr ""
+msgstr "Valt fält"
 
 #: signbank/dictionary/models.py:273
 msgid "Field choices"
-msgstr ""
+msgstr "Valda fält"
 
 #: signbank/dictionary/models.py:296
 msgid "Glosses"
-msgstr ""
+msgstr "Glosor"
 
 #. Translators: Gloss permissions
 #: signbank/dictionary/models.py:300
 msgid "Can Update Video"
-msgstr ""
+msgstr "Kan uppdatera video"
 
 #. Translators: Gloss permissions
 #: signbank/dictionary/models.py:302
 msgid "Can Search/View Full Gloss Details"
-msgstr ""
+msgstr "Kan söka/se samtliga detaljer om glosan"
 
 #. Translators: Gloss permissions
 #: signbank/dictionary/models.py:304
 msgid "Can export sign details as CSV"
-msgstr ""
+msgstr "Kan exportera teckendetaljer som CSV"
 
 #: signbank/dictionary/models.py:305
 msgid "Can import glosses from a CSV file"
-msgstr ""
+msgstr "Kan importera glosor från CSV-fil"
 
 #. Translators: Gloss permissions
 #: signbank/dictionary/models.py:307
 msgid "Include all properties in sign detail view"
-msgstr ""
+msgstr "Inkludera alla egenskaper i detaljvy för tecken"
 
 #. Translators: Gloss permissions
 #: signbank/dictionary/models.py:309
 msgid "Can publish and unpublish Glosses"
-msgstr ""
+msgstr "Kan publicera och avpublicera glosor"
 
 #: signbank/dictionary/models.py:313
 msgid "Published"
-msgstr ""
+msgstr "Publicerad"
 
 #: signbank/dictionary/models.py:314
 msgid "Publish this gloss in the public gloss list"
-msgstr ""
+msgstr "Publicera den här glosan i den publika listan med glosor."
 
 #: signbank/dictionary/models.py:316
 msgid "Exclude from ECV"
-msgstr ""
+msgstr "Exkludera från ECV"
 
 #: signbank/dictionary/models.py:317
 msgid "Exclude from ELAN externally controlled vocabularies (ECV)"
-msgstr ""
+msgstr "Exkludera den här glosan från ELAN ECV (externt kontrollerad ordlista)."
 
 #: signbank/dictionary/models.py:319
 msgid "Glosses dataset"
-msgstr ""
+msgstr "Datamängd för glosor"
 
 #: signbank/dictionary/models.py:320
 msgid "Dataset a gloss is part of"
-msgstr ""
+msgstr "Datamängd som glosan är del av."
 
 #. Translators: Help text for Gloss field: idgloss
 #: signbank/dictionary/models.py:325
 msgid "This is the unique identifying name of a Gloss."
-msgstr ""
+msgstr "Unikt identifierade namn på glosan."
 
 #. Translators: Help text for Gloss field: idgloss_en (english)
 #: signbank/dictionary/models.py:330
 msgid "This is the English name for the Gloss"
-msgstr ""
+msgstr "Engelskt namn på glosan."
 
 #. Translators: Gloss models field: notes, verbose name. Notes/Further information about a Gloss.
 #. : Notes about the Gloss.
@@ -557,102 +562,102 @@ msgstr ""
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:187
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:61
 msgid "Notes"
-msgstr ""
+msgstr "Anteckningar"
 
 #. Translators: Gloss models field: handedness, verbose name
 #: signbank/dictionary/models.py:349
 msgid "Handedness"
-msgstr ""
+msgstr "Hänthet"
 
 #. Translators: Gloss models field: strong_handshape, verbose name
 #: signbank/dictionary/models.py:353
 msgid "Strong Hand"
-msgstr ""
+msgstr "Stark hand"
 
 #. Translators: Gloss models field: weak_handshape, verbose name
 #: signbank/dictionary/models.py:358
 msgid "Weak Hand"
-msgstr ""
+msgstr "Svag hand"
 
 #. Translators: Gloss models field: location, verbose name
 #: signbank/dictionary/models.py:363
 msgid "Location"
-msgstr ""
+msgstr "Läge"
 
 #. Translators: Gloss models field: relation_between_articulators, verbose name
 #: signbank/dictionary/models.py:368
 msgid "Relation Between Articulators"
-msgstr ""
+msgstr "Relation mellan artikulatorer"
 
 #. Translators: Gloss models field: absolute_orientation_palm, verbose name
 #: signbank/dictionary/models.py:376
 msgid "Absolute Orientation: Palm"
-msgstr ""
+msgstr "Absolut attityd: Handflata"
 
 #. Translators: Gloss models field: absolute_orientation_fingers, verbose name
 #: signbank/dictionary/models.py:382
 msgid "Absolute Orientation: Fingers"
-msgstr ""
+msgstr "Absolute attityd: Fingrar"
 
 #. Translators: Gloss models field: relative_orientation_movement, verbose name
 #: signbank/dictionary/models.py:389
 msgid "Relative Orientation: Movement"
-msgstr ""
+msgstr "Relativ attityd: Rörelse"
 
 #. Translators: Gloss models field: relative_orientation_location, verbose name
 #: signbank/dictionary/models.py:396
 msgid "Relative Orientation: Location"
-msgstr ""
+msgstr "Relativ attityd: Läge"
 
 #. Translators: Gloss models field: orientation_change, verbose name
 #: signbank/dictionary/models.py:403
 msgid "Orientation Change"
-msgstr ""
+msgstr "Attitydförändring"
 
 #. Translators: Gloss models field: handshape_change, verbose name
 #: signbank/dictionary/models.py:409
 msgid "Handshape Change"
-msgstr ""
+msgstr "Förändring i handform"
 
 #. Translators: Gloss models field: repeated_movement, verbose name
 #: signbank/dictionary/models.py:414
 msgid "Repeated Movement"
-msgstr ""
+msgstr "Upprepad rörelse"
 
 #. Translators: Gloss models field: alternating_movement, verbose name
 #: signbank/dictionary/models.py:416
 msgid "Alternating Movement"
-msgstr ""
+msgstr "Växlande rörelse"
 
 #. Translators: Gloss models field: movement_shape, verbose name
 #: signbank/dictionary/models.py:419
 msgid "Movement Shape"
-msgstr ""
+msgstr "Rörelseform"
 
 #. Translators: Gloss models field: movement_direction, verbose name
 #: signbank/dictionary/models.py:423
 msgid "Movement Direction"
-msgstr ""
+msgstr "Rörelseriktning"
 
 #. Translators: Gloss models field: movement_manner, verbose name
 #: signbank/dictionary/models.py:428
 msgid "Movement Manner"
-msgstr ""
+msgstr "Rörelsesätt"
 
 #. Translators: Gloss models field: contact_type, verbose name
 #: signbank/dictionary/models.py:432
 msgid "Contact Type"
-msgstr ""
+msgstr "Kontakttyp"
 
 #. Translators: Gloss models field: phonology_other verbose name
 #: signbank/dictionary/models.py:437
 msgid "Phonology Other"
-msgstr ""
+msgstr "Fonologi, annat"
 
 #. Translators: Gloss models field: mouth_gesture, verbose name
 #: signbank/dictionary/models.py:440
 msgid "Mouth Gesture"
-msgstr ""
+msgstr "Mungest"
 
 #. Translators: Gloss models field: mouthing, verbose name
 #: signbank/dictionary/models.py:442
@@ -662,181 +667,181 @@ msgstr ""
 #. Translators: Gloss models field: phonetic_variation, verbose name
 #: signbank/dictionary/models.py:444
 msgid "Phonetic Variation"
-msgstr ""
+msgstr "Fonetisk variation"
 
 #. Translators: Gloss models field: iconic_image, verbose name
 #: signbank/dictionary/models.py:448
 msgid "Iconic Image"
-msgstr ""
+msgstr "Ikonisk bild"
 
 #. Translators: Gloss models field: named_entity, verbose name
 #: signbank/dictionary/models.py:450
 msgid "Named Entity"
-msgstr ""
+msgstr "Namgiven entitet"
 
 #. Translators: Gloss models field: semantic_field, verbose name
 #: signbank/dictionary/models.py:454
 msgid "Semantic Field"
-msgstr ""
+msgstr "Semantiskt fält"
 
 #: signbank/dictionary/models.py:461
 msgid "Number of Occurrences"
-msgstr ""
+msgstr "Antal förekomster"
 
 #. Translators: Help text for Gloss models field: number_of_occurences
 #: signbank/dictionary/models.py:463
 msgid "Number of occurences in annotation materials"
-msgstr ""
+msgstr "Antal förekomster i det annoterade materialet"
 
 #: signbank/dictionary/models.py:546
 msgid "Gloss URL"
-msgstr ""
+msgstr "URL för glosa"
 
 #: signbank/dictionary/models.py:547
 msgid "Gloss URLs"
-msgstr ""
+msgstr "URL:er för glosor"
 
 #: signbank/dictionary/models.py:557 signbank/dictionary/models.py:562
 #: signbank/dictionary/models.py:563
 msgid "Allowed tags"
-msgstr ""
+msgstr "Tillåtna taggar"
 
 #: signbank/dictionary/models.py:608
 msgid "Relation"
-msgstr ""
+msgstr "Relation"
 
 #: signbank/dictionary/models.py:609
 #: signbank/dictionary/templates/dictionary/gloss_detail_relations.html:7
 msgid "Relations"
-msgstr ""
+msgstr "Relationer"
 
 #: signbank/dictionary/models.py:625
 msgid "Morphology definition"
-msgstr ""
+msgstr "Morfologisk definition"
 
 #: signbank/dictionary/models.py:626
 msgid "Morphology definitions"
-msgstr ""
+msgstr "Morfologiska definitioner"
 
 #: signbank/dictionary/publicviews.py:106
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:202
 msgid "Videos"
-msgstr ""
+msgstr "Videor"
 
 #. Translators: Title for sign search page
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:6
 msgid "Advanced Search"
-msgstr ""
+msgstr "Avancerad sökning"
 
 #. Translators: admin_gloss_list header
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:73
 msgid "Search Glosses"
-msgstr ""
+msgstr "Sök glosor"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:87
 msgid "Gloss, Note, Translation, contains string"
-msgstr ""
+msgstr "Glosa, anteckning, översättning, innehåller sträng"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:95
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:103
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:85
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:93
 msgid "Begins with string"
-msgstr ""
+msgstr "Börjar med sträng"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:111
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:120
 msgid "Contains string"
-msgstr ""
+msgstr "Innehåller sträng"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:147
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:109
 #: templates/menu.html:72
 msgctxt "search-button"
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:149
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:151
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:110
 msgid "Reset"
-msgstr ""
+msgstr "Rensa"
 
 #. Translators: How many results to fit per page
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:156
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:115
 msgid "Results per page"
-msgstr ""
+msgstr "Resultat per sida"
 
 #. Translators: How many matches out of possible
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:172
 msgid "Number of matches:"
-msgstr ""
+msgstr "Antal sökträffar:"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:175
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:128
 msgid "Page navigation top"
-msgstr ""
+msgstr "Sidnavigation upptill"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:203
 msgctxt "sr-videos"
 msgid "Videos"
-msgstr ""
+msgstr "Videor"
 
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:217
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:161
 msgid "Page navigation bottom"
-msgstr ""
+msgstr "Sidnavigation nertill"
 
 #. Translators: Title for GlossRelation search page
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:6
 msgid "Search Gloss Relations"
-msgstr ""
+msgstr "Sök glosrelationer"
 
 #. Translators: admin_gloss_list header
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:60
 msgid "Search Relations of Glosses"
-msgstr ""
+msgstr "Sök glosrelationer"
 
 #: signbank/dictionary/templates/dictionary/admin_glossrelation_list.html:76
 msgid "Source or target gloss contains string"
-msgstr ""
+msgstr "Käll- eller målglosa innehåller sträng"
 
 #: signbank/dictionary/templates/dictionary/create_gloss.html:5
 #: signbank/dictionary/templates/dictionary/create_gloss.html:25
 msgid "Create Gloss"
-msgstr ""
+msgstr "Skapa glosa"
 
 #. Translators:
 #: signbank/dictionary/templates/dictionary/create_gloss.html:11
 msgid "Create a Gloss"
-msgstr ""
+msgstr "Skapa glosa"
 
 #. Translators: Message that appears if user doesn't have proper user rights to view this page.
 #: signbank/dictionary/templates/dictionary/create_gloss.html:30
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:35
 #: templates/infopage.html:157
 msgid "You do not have sufficient user rights to view this page."
-msgstr ""
+msgstr "Du har inte tillräcklig behörighet för att se den här sidan."
 
 #. Translators: Button
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:39
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:173
 msgid "Enable Edit"
-msgstr ""
+msgstr "Redigera"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:40
 msgid "Disable Edit"
-msgstr ""
+msgstr "Sluta redigera"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:41
 #: signbank/video/templates/uploaded_glossvideos.html:63
 #: templates/comments/edit_comment.html:10
 msgid "Save"
-msgstr ""
+msgstr "Spara"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:42
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:54
@@ -844,76 +849,76 @@ msgstr ""
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:271
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:42
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:104
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:221
 msgid "Set private"
-msgstr ""
+msgstr "Gör privat"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:105
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:224
 msgid "Set public"
-msgstr ""
+msgstr "Gör publikt"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:151
 msgid "Search results:"
-msgstr ""
+msgstr "Sökresultat"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:166
 #: signbank/dictionary/templates/dictionary/record_video.html:6
 msgid "Record a video"
-msgstr ""
+msgstr "Spela in en video"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:171
 msgid "Click on red text to edit"
-msgstr ""
+msgstr "Klicka på röd text för att redigera"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:198
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:86
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:177
 #: signbank/video/templates/uploaded_glossvideos.html:55
 msgid "Your browser does not support the video tag."
-msgstr ""
+msgstr "Den webbläsare stödjer inte videotaggen."
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:214
 msgid "Capture new poster image"
-msgstr ""
+msgstr "Skapa ny titelbild"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:236
 msgid "Update poster image for video"
-msgstr ""
+msgstr "Uppdatera videons titelbild"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:247
 #: signbank/dictionary/templates/dictionary/record_video.html:35
 msgid "Close"
-msgstr ""
+msgstr "Stäng"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:248
 msgid "Save changes"
-msgstr ""
+msgstr "Spara ändringar"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:276
 msgid "No videos available for this gloss."
-msgstr ""
+msgstr "Det finns inga videor till den här glosan."
 
 #. Translators: Upload/Add new video to Signbank
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:289
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:300
 msgid "Upload Video"
-msgstr ""
+msgstr "Ladda upp video"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:315
 msgid "Gloss:"
-msgstr ""
+msgstr "Glosa:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:320
 msgid "Gloss in English:"
-msgstr ""
+msgstr "Engelsk glosa:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:326
 msgid "Translations in "
-msgstr ""
+msgstr "Översättningar till "
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:329
 msgid ""
@@ -925,39 +930,39 @@ msgstr ""
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:338
 msgid "Notes:"
-msgstr ""
+msgstr "Anteckningar:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:343
 msgid "Sign language:"
-msgstr ""
+msgstr "Teckenspråk:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:349
 msgid "Dialect:"
-msgstr ""
+msgstr "Dialekt:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:354
 msgid "URL:"
-msgstr ""
+msgstr "Webbadress:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:367
 msgid "Add new URL"
-msgstr ""
+msgstr "Lägg till ny webbadress"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:372
 msgid "Created:"
-msgstr ""
+msgstr "Skapad:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:376
 msgid "Updated:"
-msgstr ""
+msgstr "Updaterad:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:383
 msgid "Show complete history"
-msgstr ""
+msgstr "Visa fullständig historik"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:392
 msgid "Change history for"
-msgstr ""
+msgstr "Ändra historik för"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:396
 msgid ""
@@ -965,31 +970,31 @@ msgid ""
 "                                    By clicking the link, you will be taken "
 "to the admin site and shown the state of\n"
 "                                    this gloss at the chosen time."
-msgstr ""
+msgstr "Det här är en lista över ändringar som gjorts av den här glosan. Klicka på en länk för att gå till adminsidan och se tillståndet på den valda glosan vid det tillfället."
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:399
 msgid ""
 "Do not save the changes,\n"
 "                                    unless you want to restore the older "
 "version of this Gloss!"
-msgstr ""
+msgstr "Spara bara ändringar om du vill återställa den äldre versionen av den här glosan!"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:411
 msgid "Gloss fields:"
-msgstr ""
+msgstr "Glosfält:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:414
 msgid "Translations:"
-msgstr ""
+msgstr "Översättningar:"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:14
 msgid "Morphology"
-msgstr ""
+msgstr "Morfologi"
 
 #. Translators: Header2
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:38
 msgid "Delete This Morphology"
-msgstr ""
+msgstr "Radera den här morfologin"
 
 #. Translators: Question
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:42
@@ -997,7 +1002,7 @@ msgstr ""
 msgid ""
 "Are you sure you want to delete this? This cannot be\n"
 "                                            undone."
-msgstr ""
+msgstr "Är du säker på att du vill radera den här? Radering kan inte ångras."
 
 #. Translators: Confirm delete button for deleting a comment.
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:58
@@ -1005,20 +1010,20 @@ msgstr ""
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:275
 #: templates/comments/list.html:63
 msgid "Confirm Delete"
-msgstr ""
+msgstr "Bekräfta radering"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:91
 msgid "Add Morphology Definition"
-msgstr ""
+msgstr "Lägg till morfologisk definition"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:146
 msgid "Relations to Other Signs"
-msgstr ""
+msgstr "Relationer till andra tecken"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:164
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:256
 msgid "Delete This Relation"
-msgstr ""
+msgstr "Radera den här relationen"
 
 #. Translators:
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:168
@@ -1030,76 +1035,76 @@ msgstr ""
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:211
 msgid "ID Gloss/Annotation ID Gloss"
-msgstr ""
+msgstr "ID för glosa/annotering"
 
 #. Translators: Submit button
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:214
 msgid "Add Relation"
-msgstr ""
+msgstr "Lägg till relation"
 
 #. Translators: Loan from another language(?)
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:236
 msgid "Loan"
-msgstr ""
+msgstr "Lån"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:302
 msgid "Related language"
-msgstr ""
+msgstr "Relaterat språk"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_advanced.html:310
 msgid "Add Relation to Foreign Sign"
-msgstr ""
+msgstr "Lägg till relation till främmande tecken"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_comments.html:6
 msgid "Comments"
-msgstr ""
+msgstr "Kommentarer"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_comments.html:15
 #: signbank/dictionary/templates/dictionary/gloss_detail_comments.html:17
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_comments.html:28
 msgid "Add comment"
-msgstr ""
+msgstr "Lägg till kommentar"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_relations.html:27
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:124
 msgid "No relations."
-msgstr ""
+msgstr "Inga relationer."
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_relations.html:35
 msgid "Add relation"
-msgstr ""
+msgstr "Lägg till relation"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail_relations.html:52
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:149
 msgid "No reverse relations."
-msgstr ""
+msgstr "Inga omvända relationer."
 
 #: signbank/dictionary/templates/dictionary/glosstags.html:36
 msgid "Add Tags"
-msgstr ""
+msgstr "Lägg till taggar"
 
 #: signbank/dictionary/templates/dictionary/import_csv.html:5
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:5
 msgid "Import CSV"
-msgstr ""
+msgstr "Importera CSV"
 
 #. Translators: Submit button
 #: signbank/dictionary/templates/dictionary/import_csv.html:11
 msgid "Upload your changed CSV here:"
-msgstr ""
+msgstr "Ladda upp din modifierade CSV här:"
 
 #. Translators: Submit button
 #: signbank/dictionary/templates/dictionary/import_csv.html:17
 msgid "Submit"
-msgstr ""
+msgstr "Skicka"
 
 #. Translators: Submit button
 #: signbank/dictionary/templates/dictionary/import_csv.html:25
 msgid "The following changes were detected:"
-msgstr ""
+msgstr "Hittade följande ändringar:"
 
 #. Translators: Submit button
 #: signbank/dictionary/templates/dictionary/import_csv.html:30
@@ -1113,17 +1118,17 @@ msgstr ""
 #. Translators: Submit button
 #: signbank/dictionary/templates/dictionary/import_csv.html:36
 msgid "Make changes"
-msgstr ""
+msgstr "Utför ändringar"
 
 #. Translators: Submit button
 #: signbank/dictionary/templates/dictionary/import_csv.html:42
 msgid "Changes are live."
-msgstr ""
+msgstr "Ändringarna genomförda."
 
 #. Translators:
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:11
 msgid "Import Glosses from a CSV file"
-msgstr ""
+msgstr "Importera glosor från CSV-fil"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:14
 msgid ""
@@ -1153,243 +1158,243 @@ msgstr ""
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:30
 msgid "Import glosses from CSV"
-msgstr ""
+msgstr "Importera glosor från CSV"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:5
 msgid "Confirm Import CSV"
-msgstr ""
+msgstr "Bekräfta import av CSV"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:10
 msgid "Glosses to be added to"
-msgstr ""
+msgstr "Glosor kommer läggas till för"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:11
 msgid "Total number of glosses to be added:"
-msgstr ""
+msgstr "Antal glosor som kommer läggas till:"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:25
 msgid "Glosses that will not be added because they already exist in"
-msgstr ""
+msgstr "Glosor som inte kommer läggas till eftersom de redan existerar i"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:32
 msgid "No glosses can be added!"
-msgstr ""
+msgstr "Inga glosor kan läggas till!"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:33
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:58
 msgid "Return to the form"
-msgstr ""
+msgstr "Gå tillbaka till formuläret"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:41
 msgid "Confirm"
-msgstr ""
+msgstr "Bekräfta"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:47
 msgid "The following glosses were added to"
-msgstr ""
+msgstr "Lade till följande glosor till"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:5
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:9
 msgid "Manage lexicons"
-msgstr ""
+msgstr "Hantera lexikon"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:10
 msgid ""
 "On this page you can see all the lexicons available on this Signbank. You "
 "can view the Lexicons and apply for access to Lexicons."
-msgstr ""
+msgstr "Här ser du vilka lexikon som finns i den här teckenbanken. Här finns kortfattad information om varje lexikon, och du kan också ansöka om tillgång till de olika lexikonen."
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:11
 msgid "You have access to the following Lexicons"
-msgstr ""
+msgstr "Du har tillgång till följande lexikon"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:20
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:54
 msgid "Permissions?"
-msgstr ""
+msgstr "Behörighet?"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:21
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:55
 msgid "Public?"
-msgstr ""
+msgstr "Publik?"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:27
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:66
 msgid "ECV (externally controlled vocabulary)"
-msgstr ""
+msgstr "ECV (externt kontrollerad ordlista)"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:27
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:66
 msgid "A vocabulary for ELAN"
-msgstr ""
+msgstr "En ordlista för ELAN."
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:28
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:67
 msgid "Public ECV"
-msgstr ""
+msgstr "Publik ECV"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:31
 msgid "Advanced ECV"
-msgstr ""
+msgstr "Avancerad ECV"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:34
 msgid "Users with permissions"
-msgstr ""
+msgstr "Användare med behörighet"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:43
 msgid "You don't seem to have access to any Lexicons."
-msgstr ""
+msgstr "Du har inte tillgång till några lexikon."
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:45
 msgid "You do NOT have access to the following Lexicons"
-msgstr ""
+msgstr "Du har INTE tillgång till följande lexikon"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:58
 msgid "Apply for permissions"
-msgstr ""
+msgstr "Ansök om behörighet"
 
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:73
 msgid "You seem to have access to all existing Lexicons."
-msgstr ""
+msgstr "Du har tillgång till alla existerande lexikon."
 
 #: signbank/dictionary/templates/dictionary/network_graph.html:8
 msgid "Gloss relations (Network Graph) "
-msgstr ""
+msgstr "Glosrelationer (nätverksgraf) "
 
 #: signbank/dictionary/templates/dictionary/network_graph.html:8
-#: templates/baselayout.html:9 templates/baselayout.html:80
-#: templates/baselayout.html:83
+#: templates/baselayout.html:9 templates/baselayout.html:79
+#: templates/baselayout.html:82
 msgid "Finnish Signbank"
-msgstr ""
+msgstr "Svensk teckenbank"
 
 #: signbank/dictionary/templates/dictionary/network_graph.html:31
 msgid "Choose"
-msgstr ""
+msgstr "Välj"
 
 #: signbank/dictionary/templates/dictionary/network_graph.html:35
 msgid "Start rendering"
-msgstr ""
+msgstr "Börja rendera"
 
 #: signbank/dictionary/templates/dictionary/network_graph.html:36
 msgid "Stop rendering"
-msgstr ""
+msgstr "Sluta rendera"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:10
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:11
 #: templates/baselayout.html:18 templates/baselayout.html:19
 msgctxt "meta"
 msgid "Finnish Signbank"
-msgstr ""
+msgstr "Svensk teckenbank"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:54
 msgid "<em>No translations.</em>"
-msgstr ""
+msgstr "<em>Inga översättningar.</em>"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:64
 msgid "No notes."
-msgstr ""
+msgstr "Inga anteckningar."
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:102
 msgid "Relations to glosses"
-msgstr ""
+msgstr "Relation till glosor"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:110
 msgid "Relations from this gloss"
-msgstr ""
+msgstr "Relationer från den här glosan"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:135
 msgid "Relations to this gloss"
-msgstr ""
+msgstr "Relationer till den här glosan"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:167
 msgid "Show comments"
-msgstr ""
+msgstr "Visa kommentarer"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:188
 #: templates/comments/list.html:47
 msgid "No comments."
-msgstr ""
+msgstr "Inga kommentarer."
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:5
 msgid "Search Signs"
-msgstr ""
+msgstr "Sök tecken"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:44
 msgid "Search signs"
-msgstr ""
+msgstr "Sök tecken"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:46
 msgid "Help"
-msgstr ""
+msgstr "Hjälp"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:53
 msgid "How to use the search page?"
-msgstr ""
+msgstr "Hur använder man söksidan?"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:61
 msgid "Instructions for how to use the search page."
-msgstr ""
+msgstr "Instruktioner för hur man använder söksidan"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:68
 msgid "Browse glosses:"
-msgstr ""
+msgstr "Visa glosor:"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:116
 msgid "Description of the lexicons"
-msgstr ""
+msgstr "Beskrivning av lexikon"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:122
 msgid "Copyright and license:"
-msgstr ""
+msgstr "Copyright och licens:"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:125
 msgid "ELAN ECV"
-msgstr ""
+msgstr "ELAN ECV"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:136
 msgctxt "public_search"
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:159
 msgctxt "videocount"
 msgid "Videos"
-msgstr ""
+msgstr "Videor"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:180
 msgid "No video."
-msgstr ""
+msgstr "Ingen video."
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:185
 msgctxt "publicglosslist"
 msgid "Translation equivalents"
-msgstr ""
+msgstr "Översättningar"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:190
 msgid "No translation equivalents yet"
-msgstr ""
+msgstr "Inga översättningar än"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:200
 msgid "No results."
-msgstr ""
+msgstr "Inga resultat."
 
 #: signbank/dictionary/templates/dictionary/record_video.html:14
 msgid "Record a video for"
-msgstr ""
+msgstr "Spela in en video till"
 
 #: signbank/dictionary/templates/dictionary/record_video.html:21
 #: signbank/dictionary/templates/dictionary/record_video.html:92
 msgid "Start Recording"
-msgstr ""
+msgstr "Börja inspelning"
 
 #: signbank/dictionary/templates/dictionary/record_video.html:25
 msgid "Upload"
-msgstr ""
+msgstr "Ladda upp"
 
 #: signbank/dictionary/templates/dictionary/record_video.html:93
 #: signbank/dictionary/templates/dictionary/record_video.html:98
 msgid "Stop Recording"
-msgstr ""
+msgstr "Avsluta inspelning"
 
 #: signbank/dictionary/templates/dictionary/record_video.html:94
 msgid ""
@@ -1399,163 +1404,167 @@ msgstr ""
 
 #: signbank/dictionary/templates/dictionary/record_video.html:95
 msgid "No recording found"
-msgstr ""
+msgstr "Kunde inte hitta inspelning"
 
 #: signbank/dictionary/templates/dictionary/record_video.html:96
 msgid "Click to download from server"
-msgstr ""
+msgstr "Klicka för att ladda ner från server"
 
 #: signbank/dictionary/templates/dictionary/record_video.html:97
 msgid "Upload completed."
-msgstr ""
+msgstr "Uppladdning klar."
 
 #: signbank/dictionary/update.py:39
 msgid "You do not have permissions to edit Glosses of this dataset/lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att redigera glosor i den här datamängden/lexikonet."
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:84
 msgid "Unknown Dialect"
-msgstr ""
+msgstr "Okänd dialekt"
 
 #: signbank/dictionary/update.py:97
 msgid "GlossVideo does not exist"
-msgstr ""
+msgstr "Glosvideo finns inte"
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:121
 msgid "Unknown field"
-msgstr ""
+msgstr "Okänt fält"
 
 #: signbank/dictionary/update.py:165
 msgid "Error: Unable to change videofiles names."
-msgstr ""
+msgstr "Fel: Misslyckades med att ändra namn på videofiler"
 
 #: signbank/dictionary/update.py:181
 msgid "A Language does not exist with language_code: "
-msgstr ""
+msgstr "Det finns inget språk med språkkod:"
 
 #: signbank/dictionary/update.py:185
 msgid ""
 "Multiple Languages with the same language_code exist, cannot edit because it "
 "is unclear which languages translations to edit."
-msgstr ""
+msgstr "Det finns flera språk med samma språkkod, misslyckades med redigering eftersom det är oklart vilka språköversättningar som borde redigeras."
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:208
 msgid "Bad Relation ID"
-msgstr ""
+msgstr "Felaktig relations-ID"
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:212 signbank/dictionary/update.py:260
 msgid "Relation doesn't match gloss"
-msgstr ""
+msgstr "Relationen passar inte med glosan"
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:236 signbank/dictionary/update.py:467
 msgid "Badly formed gloss identifier"
-msgstr ""
+msgstr "Felaktig formaterad glosidentifierare"
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:240 signbank/dictionary/update.py:280
 #: signbank/dictionary/update.py:471
 msgid "Unknown form field"
-msgstr ""
+msgstr "Okänt formulärsfält"
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:255
 msgid "Bad RelationToForeignSign ID"
-msgstr ""
+msgstr "Felaktig RelationToForeignSign ID"
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:352 signbank/dictionary/update.py:390
 msgid "Source gloss not found."
-msgstr ""
+msgstr "Hittade inte källglosa."
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:364
 msgid "Target gloss not found."
-msgstr ""
+msgstr "Hittade inte målglosa."
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:402
 msgid "Form not valid"
-msgstr ""
+msgstr "Ogiltigt formulär"
 
 #. Translators: Htt404
 #: signbank/dictionary/update.py:428
 msgid "Incorrect request"
-msgstr ""
+msgstr "Felaktig förfrågan"
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:441
 msgid "Bad Morphology Definition ID"
-msgstr ""
+msgstr "Felaktig morfologidefinitions-ID"
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:446
 msgid "Morphology Definition doesn't match gloss"
-msgstr ""
+msgstr "Morfologidefinition passar inte med glosan"
 
 #: signbank/dictionary/update.py:545
 msgid "You do not have permissions to import glosses to this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att importera glosor till det här lexikonet."
 
 #: signbank/dictionary/update.py:555
 msgid "Cannot open the file:"
-msgstr ""
+msgstr "Misslyckades med att öpnna filen:"
 
 #: signbank/dictionary/update.py:559
 msgid "File must be UTF-8 encoded!"
-msgstr ""
+msgstr "Filen måste ha UTF-8 format!"
 
 #: signbank/dictionary/update.py:588
 msgid ""
 "The provided CSV-file does not meet the requirements or there is some other "
 "problem."
-msgstr ""
+msgstr "Den angivna CSV-filen uppfyller inte kraven eller så har något annat gått fel."
 
 #: signbank/dictionary/update.py:612
 msgid "Cancelled adding CSV data."
-msgstr ""
+msgstr "Avbröt importeranted av CSV-datat."
 
 #: signbank/dictionary/update.py:639
 msgid "Glosses were added succesfully."
-msgstr ""
+msgstr "Glosorna har nu lagts till."
 
 #: signbank/dictionary/update.py:657
 msgid ""
 "You do not have permissions to delete relations from glosses of this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att radera relationer från glosor i det här lexikonet."
 
 #: signbank/dictionary/update.py:673
 msgid ""
 "You do not have permissions to add relations to glosses of this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att lägga till relationer till glosor i det här lexikonet."
 
 #: signbank/dictionary/views.py:37
 msgid "You do not have permissions to create glosses for this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att skapa glosor i det här lexikonet."
 
 #: signbank/dictionary/views.py:124
 msgid "applied for permissions to:"
-msgstr ""
+msgstr "ansökt om behörighet att:"
 
 #: signbank/dictionary/views.py:127
 msgid "applied for permissions to lexicon:"
-msgstr ""
+msgstr "ansökt om behörighet till lexikon:"
 
 #: signbank/dictionary/views.py:131
 msgid "Successfully applied permissions for"
-msgstr ""
+msgstr "Har applicerat behörigheter för"
 
-#: signbank/settings/base.py:57
+#: signbank/settings/base.py:51
+msgid "Finnish"
+msgstr "Finska"
+
+#: signbank/settings/base.py:52
 msgid "English"
-msgstr ""
+msgstr "Engelska"
 
-#: signbank/settings/base.py:58
+#: signbank/settings/base.py:53
 msgid "Swedish"
-msgstr ""
+msgstr "Svenska"
 
 #: signbank/tools.py:83
 msgid ""
@@ -1565,71 +1574,71 @@ msgstr ""
 
 #: signbank/video/admin.py:13
 msgid "Has gloss"
-msgstr ""
+msgstr "Har glosa"
 
 #: signbank/video/admin.py:18 signbank/video/admin.py:35
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: signbank/video/admin.py:19 signbank/video/admin.py:36
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: signbank/video/admin.py:30
 msgid "Has poster"
-msgstr ""
+msgstr "Har titelbild"
 
 #: signbank/video/admin.py:49
 msgid "Gloss has video count of"
-msgstr ""
+msgstr "Antal videor för glosan"
 
 #: signbank/video/admin.py:54
 msgid "More than 1"
-msgstr ""
+msgstr "Mer än 1"
 
 #: signbank/video/admin.py:55
 msgid "More than 2"
-msgstr ""
+msgstr "Mer än 2"
 
 #: signbank/video/admin.py:56
 msgid "Less than 2"
-msgstr ""
+msgstr "Mindre än 2"
 
 #: signbank/video/models.py:37
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: signbank/video/models.py:38
 msgid "Descriptive name of the video."
-msgstr ""
+msgstr "Ett beskrivande namn på videon."
 
 #: signbank/video/models.py:40
 msgid "Video file"
-msgstr ""
+msgstr "Videofil"
 
 #: signbank/video/models.py:41
 msgid "Video file."
-msgstr ""
+msgstr "Videofil."
 
 #: signbank/video/models.py:43
 msgid "Poster file"
-msgstr ""
+msgstr "Bildfil för titelbild"
 
 #: signbank/video/models.py:45
 msgid "Still image representation of the video."
-msgstr ""
+msgstr "Stillbild som representerar videon."
 
 #: signbank/video/models.py:47
 msgid "Public"
-msgstr ""
+msgstr "Publik"
 
 #: signbank/video/models.py:50
 msgid "The gloss this GlossVideo is related to."
-msgstr ""
+msgstr "Glosan som den här glosvideon är relaterad till."
 
 #: signbank/video/models.py:52
 msgid "Glossvideo dataset"
-msgstr ""
+msgstr "Datamängd för glosvideon"
 
 #: signbank/video/models.py:53
 msgid ""
@@ -1641,7 +1650,7 @@ msgstr ""
 #. : Version number of the GlossVideo within Glosses videos.
 #: signbank/video/models.py:57
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: signbank/video/models.py:58
 msgid ""
@@ -1651,150 +1660,150 @@ msgstr ""
 
 #: signbank/video/models.py:63
 msgid "Gloss video"
-msgstr ""
+msgstr "Glosvideor"
 
 #: signbank/video/models.py:64
 msgid "Gloss videos"
-msgstr ""
+msgstr "Glosvideor"
 
 #: signbank/video/templates/addvideos.html:3
 msgid "Upload Videos"
-msgstr ""
+msgstr "Ladda upp videor"
 
 #: signbank/video/templates/addvideos.html:27 templates/menu.html:46
 msgid "Upload videos"
-msgstr ""
+msgstr "Ladda upp videor"
 
 #: signbank/video/templates/addvideos.html:27
 msgid "You can select multiple videos to be uploaded at once"
-msgstr ""
+msgstr "Du kan välja mer än en video för samtidig uppladdning"
 
 #: signbank/video/templates/addvideos.html:34
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: signbank/video/templates/addvideos.html:35
 msgid "selected files"
-msgstr ""
+msgstr "Valda filer"
 
 #: signbank/video/templates/addvideos.html:35
 msgid "total size"
-msgstr ""
+msgstr "total storlek"
 
 #: signbank/video/templates/addvideos.html:36
 msgid "Send file(s)"
-msgstr ""
+msgstr "Ladda upp fil(er)"
 
 #: signbank/video/templates/uploaded_glossvideos.html:4
 #: signbank/video/templates/uploaded_glossvideos.html:10
 msgid "Manage Uploaded Videos"
-msgstr ""
+msgstr "Hantera uppladdade videor"
 
 #: signbank/video/templates/uploaded_glossvideos.html:10
 msgid "Connect Glossvideos to Glosses"
-msgstr ""
+msgstr "Koppla glosvideor till glosor"
 
 #: signbank/video/templates/uploaded_glossvideos.html:15
 msgid "Select the dataset you want to work with!"
-msgstr ""
+msgstr "Välj vilken datamängd du vill använda!"
 
 #: signbank/video/templates/uploaded_glossvideos.html:18
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: signbank/video/templates/uploaded_glossvideos.html:26
 #: templates/comments/search_comments.html:49
 msgid "previous"
-msgstr ""
+msgstr "föregående"
 
 #: signbank/video/templates/uploaded_glossvideos.html:32
 #: templates/comments/search_comments.html:55
 msgid "next"
-msgstr ""
+msgstr "nästa"
 
 #: signbank/video/templates/uploaded_glossvideos.html:35
 #: templates/comments/search_comments.html:58
 msgid "Total of"
-msgstr ""
+msgstr "Totalt"
 
 #: signbank/video/templates/uploaded_glossvideos.html:35
 msgid "videos"
-msgstr ""
+msgstr "videor"
 
 #: signbank/video/templates/uploaded_glossvideos.html:73
 msgid "Save all"
-msgstr ""
+msgstr "Spara allt"
 
 #: signbank/video/templates/uploaded_glossvideos.html:146
 msgid "GlossVideo successfully updated!"
-msgstr ""
+msgstr "Glosvideo uppdaterad!"
 
 #: signbank/video/templates/uploaded_glossvideos.html:153
 msgid "Did you provide all values as id numbers?"
-msgstr ""
+msgstr "Angav du alla värden som ID-nummer?"
 
 #: signbank/video/views.py:64 signbank/video/views.py:179
 msgid "You do not have permissions to upload videos for this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att ladda upp videor till det här lexikonet."
 
 #: signbank/video/views.py:100
 msgid "You do not have permissions to change order for videos of this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att ändra ordning på videor i det här lexikonet."
 
 #: signbank/video/views.py:137
 msgid ""
 "You do not have permissions to add/change poster images for glosses videos "
 "of this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att lägga till/ändra titelbilder för glosvideor i det här lexikonet."
 
 #: signbank/video/views.py:190
 msgid "You don't have permissions to upload videos."
-msgstr ""
+msgstr "Du har inte behörighet att ladda upp videor."
 
 #: signbank/video/views.py:195
 msgid "videos were successfully uploaded."
-msgstr ""
+msgstr "uppladdning av videor klar."
 
 #: signbank/video/views.py:198
 msgid "Could not upload the following file(s)"
-msgstr ""
+msgstr "Misslyckades med att ladda upp följande video(r)"
 
 #: signbank/video/views.py:256
 msgid "You do not have permissions to view the selected lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att se det valda lexikonet."
 
 #: signbank/video/views.py:301
 #, python-format
 msgid "You did not provide the value as a number for: %s "
-msgstr ""
+msgstr "Du angav inte värdet som ett nummer för: %s "
 
 #: signbank/video/views.py:314
 msgid ""
 "You do not have permissions to add videos to the lexicon of selected gloss."
-msgstr ""
+msgstr "Du har inte behörighet att lägga till videor i det här lexikonet."
 
 #: signbank/video/views.py:333
 msgid ""
 "You do not have permissions to add/change poster images for this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att lägga till/ändra titelbilder i det här lexikonet."
 
 #: signbank/video/views.py:361 signbank/video/views.py:387
 msgid "You do not have permissions to change order of videos for this lexicon."
-msgstr ""
+msgstr "Du har inte behörighet att ändra ordning på videor i det här lexikonet."
 
 #. Translators: Title for error page 403
 #: templates/403.html:7
 msgid "Permission Denied"
-msgstr ""
+msgstr "Åtkomst nekad"
 
 #. Translators: Text for error page 403
 #: templates/403.html:9
 msgid "You do not have permission to view the requested page."
-msgstr ""
+msgstr "Du har inte behörighet att se den begärda sidan."
 
 #: templates/403.html:11
 msgid "Exception:"
-msgstr ""
+msgstr "Undantag:"
 
 #. Translators: Error 404 page
 #: templates/404.html:7
@@ -1808,7 +1817,7 @@ msgstr ""
 #. Translators: Title of page - error 500
 #: templates/500.html:10
 msgid "Server Error"
-msgstr ""
+msgstr "Serverfel"
 
 #. Translators: Information about error 500
 #: templates/500.html:12
@@ -1822,81 +1831,81 @@ msgctxt "meta"
 msgid ""
 "Finnish Signbank is a lexical database of Finnish Sign Language (FinSL) and "
 "Finland-Swedish Sign Language (FinSSL)."
-msgstr ""
+msgstr "Swedish teckenbank är en lexikal databas över Svenskt Teckenspråk (STS)."
 
-#: templates/baselayout.html:94
+#: templates/baselayout.html:93
 msgid "(No content)"
-msgstr ""
+msgstr "(Inget innehåll)"
 
-#: templates/baselayout.html:103
+#: templates/baselayout.html:102
 msgid "University of Jyväskylä"
-msgstr ""
+msgstr "Jyväskylä universitet"
 
-#: templates/baselayout.html:111
+#: templates/baselayout.html:110
 msgid "Finnish Association of the Deaf"
-msgstr ""
+msgstr "Finlands dövas förbund"
 
-#: templates/baselayout.html:114
+#: templates/baselayout.html:113
 msgid "The Language Bank of Finland"
-msgstr ""
+msgstr "Språkbanken i Finland"
 
-#: templates/baselayout.html:117
+#: templates/baselayout.html:116
 msgid "CSC - IT center for science"
-msgstr ""
+msgstr "CSS – IT center for science"
 
 #: templates/comments/latest_comments.html:3 templates/menu.html:54
 msgid "Latest comments"
-msgstr ""
+msgstr "Senaste kommentarer"
 
 #: templates/comments/latest_comments_page.html:3
 msgid "Latest Comments"
-msgstr ""
+msgstr "Senaste kommentarer"
 
 #: templates/comments/list.html:21
 msgid "Edit"
-msgstr ""
+msgstr "Redigera"
 
 #: templates/comments/list.html:28
 msgid "Delete"
-msgstr ""
+msgstr "Radera"
 
 #: templates/comments/list.html:55
 msgid "Delete comment?"
-msgstr ""
+msgstr "Radera kommentar?"
 
 #: templates/comments/list.html:75
 msgid "Edit comment"
-msgstr ""
+msgstr "Redigera kommentar"
 
 #. Translators: Title for comments search page
 #: templates/comments/search_comments.html:6
 msgid "Search Comments"
-msgstr ""
+msgstr "Sök kommentarer"
 
 #: templates/comments/search_comments.html:9 templates/menu.html:55
 msgid "Search comments"
-msgstr ""
+msgstr "Sök kommentarer"
 
 #: templates/comments/search_comments.html:58
 msgctxt "count"
 msgid "comments"
-msgstr ""
+msgstr "kommentarer"
 
 #: templates/django_registration/activate.html:4
 msgid "Activation Failure"
-msgstr ""
+msgstr "Aktiveringsfel"
 
 #: templates/django_registration/activate.html:8
 msgid "Account activation failed."
-msgstr ""
+msgstr "Kontoaktiveringen misslyckades."
 
 #: templates/django_registration/activation_complete.html:4
 msgid "Activation Complete"
-msgstr ""
+msgstr "Aktivering klar"
 
 #: templates/django_registration/activation_complete.html:8
 msgid "Account activation completed successfully."
-msgstr ""
+msgstr "Kontoaktiveringen slutförd."
 
 #: templates/django_registration/activation_email_body.txt:2
 #, python-format
@@ -1978,22 +1987,22 @@ msgstr ""
 
 #: templates/django_registration/registration_form.html:5
 msgid "Create an Account"
-msgstr ""
+msgstr "Skapa ett konto"
 
 #. Translators: Title for create account
 #: templates/django_registration/registration_form.html:10
 #: templates/django_registration/registration_form.html:34
 #: templates/langbar.html:28 templates/registration/login.html:24
 msgid "Create account"
-msgstr ""
+msgstr "Skapa konto"
 
 #: templates/django_registration/registration_form.html:18
 msgid "Create an account by filling in the information"
-msgstr ""
+msgstr "Skapa ett konto gerom att fylla i informationen"
 
 #: templates/django_registration/registration_form.html:26
 msgid "Terms of service"
-msgstr ""
+msgstr "Användarvillkor"
 
 #: templates/django_registration/registration_form.html:29
 msgid ""
@@ -2003,7 +2012,7 @@ msgstr ""
 
 #: templates/django_registration/registration_form.html:39
 msgid "Error"
-msgstr ""
+msgstr "Fel"
 
 #: templates/django_registration/registration_form.html:41
 msgid "Creating new accounts not permitted for users that are Signed in!"
@@ -2011,11 +2020,11 @@ msgstr ""
 
 #: templates/django_registration/registration_info.html:2
 msgid "Frequently asked questions about account creation"
-msgstr ""
+msgstr "Vanliga frågor om kontoskapande"
 
 #: templates/django_registration/registration_info.html:8
 msgid "Who can create an account?"
-msgstr ""
+msgstr "Vem kan skapa ett konto?"
 
 #: templates/django_registration/registration_info.html:14
 msgid ""
@@ -2097,17 +2106,17 @@ msgstr ""
 
 #: templates/django_registration/terms_of_service.html:5
 msgid "privacy policy"
-msgstr ""
+msgstr "integritetspolicy"
 
 #: templates/django_registration/terms_of_service.html:7
 msgid "You are over 16 years old."
-msgstr ""
+msgstr "Du måste vara minst 16 år."
 
 #: templates/django_registration/terms_of_service.html:7
 msgid ""
 "In case you are under 16 years old, you must hand us an approval from your "
 "parents."
-msgstr ""
+msgstr "Om du är under 16 år behöver du ge oss ett godkännande från målsman."
 
 #: templates/django_registration/terms_of_service.html:8
 msgid ""
@@ -2167,154 +2176,154 @@ msgstr ""
 #. Translators: Edit page button in baselayout
 #: templates/flatpages/default.html:20
 msgid "Edit Page"
-msgstr ""
+msgstr "Redigera sida"
 
 #: templates/flatpages/tos.html:9
 msgid "Terms of Service"
-msgstr ""
+msgstr "Användarvillkor"
 
 #: templates/infopage.html:5
 msgid "Links and Statistics"
-msgstr ""
+msgstr "Länkar och statistik"
 
 #: templates/infopage.html:12 templates/menu.html:52
 msgid "Links and statistics"
-msgstr ""
+msgstr "Länkar och statistik"
 
 #: templates/infopage.html:13
 msgid ""
 "On this page you can find numerical data about the database, and links to "
 "externally controlled vocabularies to be used in ELAN."
-msgstr ""
+msgstr "På den här sidan kan du hitta numerisk information om databasen och länkar till externt kontrollerade ordlistor (ECV) som kan användas med ELAN."
 
 #: templates/infopage.html:21
 msgid "All lexicons"
-msgstr ""
+msgstr "Alla lexikon"
 
 #: templates/infopage.html:26 templates/infopage.html:116
 msgid "Gloss count"
-msgstr ""
+msgstr "Antal glosor"
 
 #: templates/infopage.html:30 templates/infopage.html:120
 msgid "Glosses with video"
-msgstr ""
+msgstr "Glosor med video"
 
 #: templates/infopage.html:34 templates/infopage.html:124
 msgid "Video count"
-msgstr ""
+msgstr "Antal videor"
 
 #: templates/infopage.html:38 templates/infopage.html:128
 msgid "Videos not connected to a Gloss"
-msgstr ""
+msgstr "Videor som inte är kopplade till en glosa"
 
 #: templates/infopage.html:42 templates/infopage.html:132
 msgid "Videos with poster image"
-msgstr ""
+msgstr "Videor med titelbild"
 
 #: templates/infopage.html:46 templates/infopage.html:136
 msgid "Videos without poster image"
-msgstr ""
+msgstr "Videor utan titelbild"
 
 #: templates/infopage.html:64
 msgid "ELAN externally controlled vocabulary links"
-msgstr ""
+msgstr "Länkar till ELAN externt kontrollerad ordlista (ECV)"
 
 #: templates/infopage.html:76
 msgid "Signbank Wiki"
-msgstr ""
+msgstr "Teckenbankens wiki"
 
 #: templates/infopage.html:77
 msgid "Help and tutorials"
-msgstr ""
+msgstr "Hjälp och introduktioner"
 
 #: templates/infopage.html:85
 msgid "Database storage space usage"
-msgstr ""
+msgstr "Utrymmesanvändning för databas"
 
 #: templates/infopage.html:91
 msgid "Space used"
-msgstr ""
+msgstr "Använt utrymme"
 
 #: templates/infopage.html:96
 msgid "Files that do not exist"
-msgstr ""
+msgstr "Filer som inte existerar"
 
 #: templates/langbar.html:14
 msgid "Django admin"
-msgstr ""
+msgstr "Django-administration"
 
 #: templates/langbar.html:17
 msgid "Change password"
-msgstr ""
+msgstr "Ändra lösenord"
 
 #: templates/langbar.html:20
 msgid "Sign out"
-msgstr ""
+msgstr "Logga ut"
 
 #. Translators: Text sign in - Log in form
 #. Translators: Sign in button in login form
 #: templates/langbar.html:26 templates/registration/login.html:9
 #: templates/registration/login.html:16
 msgid "Sign in"
-msgstr ""
+msgstr "Logga in"
 
 #. Translators: Button to toggle navigation
 #: templates/menu.html:8
 msgid "Toggle navigation"
-msgstr ""
+msgstr "Slå på/av navigering"
 
 #: templates/menu.html:17
 msgid "Home"
-msgstr ""
+msgstr "Hem"
 
 #: templates/menu.html:21
 msgid "About"
-msgstr ""
+msgstr "Om"
 
 #: templates/menu.html:28
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: templates/menu.html:32
 msgid "Signs"
-msgstr ""
+msgstr "Tecken"
 
 #: templates/menu.html:36
 msgctxt "menu-link"
 msgid "Advanced search"
-msgstr ""
+msgstr "Avancerad sökning"
 
 #: templates/menu.html:37
 msgid "Search relations"
-msgstr ""
+msgstr "Sök relationer"
 
 #: templates/menu.html:41
 msgid "Manage"
-msgstr ""
+msgstr "Hantera"
 
 #: templates/menu.html:44
 msgid "Create gloss"
-msgstr ""
+msgstr "Skapa glosa"
 
 #: templates/menu.html:47
 msgid "Manage uploaded videos"
-msgstr ""
+msgstr "Hantera uppladdade videor"
 
 #: templates/menu.html:50
 msgid "CSV import"
-msgstr ""
+msgstr "Importera CSV"
 
 #: templates/menu.html:59
 msgid "Network Graphs"
-msgstr ""
+msgstr "Nätverksgrafer"
 
 #: templates/notifications/list.html:13
 msgid "Notifications"
-msgstr ""
+msgstr "Notifikationer"
 
 #: templates/notifications/list.html:14
 msgid "Mark all as read"
-msgstr ""
+msgstr "Markera alla som lästa"
 
 #: templates/notifications/notice.html:14
 msgid "ago"
@@ -2333,38 +2342,38 @@ msgstr ""
 #: templates/policyconsent.html:21
 msgctxt "consent"
 msgid "Got it!"
-msgstr ""
+msgstr "Jag förstår!"
 
 #. Translators: Privacy policy consent: Privacy policy link name.
 #: templates/policyconsent.html:23
 msgctxt "consent"
 msgid "Learn more"
-msgstr ""
+msgstr "Läs mer"
 
 #: templates/registration/logged_out.html:4
 msgid "Logged Out"
-msgstr ""
+msgstr "Utloggad"
 
 #: templates/registration/logged_out.html:8
 msgid "Successfully logged out"
-msgstr ""
+msgstr "Du är nu utloggad"
 
 #: templates/registration/login.html:5
 msgid "Sign In"
-msgstr ""
+msgstr "Logga in"
 
 #: templates/registration/login.html:21
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Glömt lösenord?"
 
 #: templates/registration/login.html:22
 msgid "Reset password"
-msgstr ""
+msgstr "Återställ lösenord"
 
 #: templates/registration/login.html:23
 msgid "Not a member?"
-msgstr ""
+msgstr "Inte medlem?"
 
 #: templates/setlang.html:9
 msgid "Language selection"
-msgstr ""
+msgstr "Språkval"
