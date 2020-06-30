@@ -1,7 +1,30 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Swedish Signbank translation file.
+# Copyright (C) 2020 by zrajm.
+# This file is distributed under the same license as the 'FinSL-signbank' package.
+# Translated 2020 by zrajm <zrajm@zrajm.org>.
+#
+################################################################################
+#
+# The below instructions are taken from:
+# https://finsl-signbank.readthedocs.io/en/latest/translation.html
+#
+# The following commands generates this .po file by scanning the source code in
+# this directory (except the 'venv' directory, as the modules there provide
+# their own translations) and creating entries (with the English originals) for
+# all translatable strings. The command either generates the .po file from
+# scratch, ur update the current one with new translateable strings.
+#
+#     python bin/develop.py makemessages -i venv
+#
+# After having added the added the desired translations, these must be compiled
+# for the signback software to access them. Compilation is with the following
+# command:
+#
+#     python bin/develop.py compilemessages
+#
+# /zrajm, 30 June 2020
+#
+################################################################################
 #
 #, fuzzy
 msgid ""
@@ -10,9 +33,9 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-30 22:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: zrajm <zrajm@zrajm.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
