@@ -96,31 +96,96 @@ header img#logoheadersignbank {
     margin-left: 0px;
     margin-right: 0px;
 }
-.logoholder {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-.logofooter {
-    margin-right: 1vw;
-}
-#logojy {
-    max-height: 70px;
-}
-#logokl {
-    max-height: 45px;
-}
-#logokielipankki {
-    max-height: 70px;
-}
-#logocsc {
-    max-height: 55px;
-}
-#license {
 
+/******************************************************************************/
+/* Stockholm University color scheme for django-bootstrap3. */
+/* (c)2020 Copyright by zrajm */
+
+/* Page header. */
+header#header {
+    background: #002f5f;
 }
+header#header h1 {
+    font-size: 25px;
+}
+header .headerlogo img {
+    padding: .2em 0;
+    vertical-align: middle;
+}
+header .headerlogo span {
+    vertical-align: middle;
+    margin-left: .25em;
+    font-size: 130%;
+}
+
+/******************************************************************************/
+/*  Set bootstrap primary color to Stockholm University blue.                 */
+/******************************************************************************/
+
+a,
+.text-primary,
+.btn-primary .badge,
+.btn-link,
+.pagination > li > a,
+.pagination > li > span,
+.list-group-item.active > .badge,
+.nav-pills > .active > a > .badge,
+.panel-primary > .panel-heading .badge {
+    color: #002f5f;
+}
+
+.btn-primary,
+.bg-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus,
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus,
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus,
+.label-primary,
+.progress-bar {
+    background-color: #002f5f;
+}
+
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus,
+a.thumbnail:hover,
+a.thumbnail:focus,
+a.thumbnail.active,
+.panel-primary {
+    border-color: #002f5f;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus,
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus,
+.panel-primary > .panel-heading {
+    background-color: #002f5f;
+    border-color: #002f5f;
+}
+
+.panel-primary > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #002f5f;
+}
+
+.panel-primary > .panel-footer + .panel-collapse > .panel-body {
+    border-bottom-color: #002f5f;
+}
+
+/*[eof]*/

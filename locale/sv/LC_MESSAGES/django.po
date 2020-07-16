@@ -1264,7 +1264,7 @@ msgstr "Glosrelationer (nätverksgraf) "
 #: signbank/dictionary/templates/dictionary/network_graph.html:8
 #: templates/baselayout.html:9 templates/baselayout.html:79
 #: templates/baselayout.html:82
-msgid "Finnish Signbank"
+msgid "Swedish Signbank"
 msgstr "Svensk teckenbank"
 
 #: signbank/dictionary/templates/dictionary/network_graph.html:31
@@ -1283,7 +1283,7 @@ msgstr "Sluta rendera"
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:11
 #: templates/baselayout.html:18 templates/baselayout.html:19
 msgctxt "meta"
-msgid "Finnish Signbank"
+msgid "Swedish Signbank"
 msgstr "Svensk teckenbank"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:54
@@ -1828,30 +1828,12 @@ msgstr ""
 
 #: templates/baselayout.html:13 templates/baselayout.html:16
 msgctxt "meta"
-msgid ""
-"Finnish Signbank is a lexical database of Finnish Sign Language (FinSL) and "
-"Finland-Swedish Sign Language (FinSSL)."
+msgid "Swedish Signbank is a lexical database of Swedish Sign Language (STS)."
 msgstr "Swedish teckenbank är en lexikal databas över Svenskt Teckenspråk (STS)."
 
 #: templates/baselayout.html:93
 msgid "(No content)"
 msgstr "(Inget innehåll)"
-
-#: templates/baselayout.html:102
-msgid "University of Jyväskylä"
-msgstr "Jyväskylä universitet"
-
-#: templates/baselayout.html:110
-msgid "Finnish Association of the Deaf"
-msgstr "Finlands dövas förbund"
-
-#: templates/baselayout.html:113
-msgid "The Language Bank of Finland"
-msgstr "Språkbanken i Finland"
-
-#: templates/baselayout.html:116
-msgid "CSC - IT center for science"
-msgstr "CSS – IT center for science"
 
 #: templates/comments/latest_comments.html:3 templates/menu.html:54
 msgid "Latest comments"

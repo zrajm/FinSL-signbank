@@ -6,17 +6,17 @@
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{LANGUAGE_CODE|default:'en'}}">
   <head>
-    <title>{% block bootstrap3_title %}{% endblock %}{% blocktrans %}Finnish Signbank{% endblocktrans %}</title>
+    <title>{% block bootstrap3_title %}{% endblock %}{% trans "Swedish Signbank" %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    {% block metadesc %}<meta name="description" content="{% blocktrans context 'meta' %}Finnish Signbank is a lexical database of Finnish Sign Language (FinSL) and Finland-Swedish Sign Language (FinSSL).{% endblocktrans %}">{% endblock %}
+    {% block metadesc %}<meta name="description" content="{% blocktrans context 'meta' %}Swedish Signbank is a lexical database of Swedish Sign Language (STS).{% endblocktrans %}">{% endblock %}
 
     {% block ogimage %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/signbank_logo_ympyra1_sininen-compressor.png' %}">{% endblock %}
-    {% block ogdesc %}<meta property="og:description" content="{% blocktrans context 'meta' %}Finnish Signbank is a lexical database of Finnish Sign Language (FinSL) and Finland-Swedish Sign Language (FinSSL).{% endblocktrans %}">{% endblock %}
+    {% block ogdesc %}<meta property="og:description" content="{% blocktrans context 'meta' %}Swedish Signbank is a lexical database of Swedish Sign Language (STS).{% endblocktrans %}">{% endblock %}
     {% block metatitles %}
-    <meta property="og:title" content="{% blocktrans context 'meta' %}Finnish Signbank{% endblocktrans %}">
-    <meta name="twitter:title" content="{% blocktrans context 'meta' %}Finnish Signbank{% endblocktrans %}">
+    <meta property="og:title" content="{% trans "Swedish Signbank" context "meta" %}">
+    <meta name="twitter:title" content="{% trans "Swedish Signbank" context "meta" %}">
     {% endblock %}
 <script type="application/ld+json">
 // Structured data for Google
@@ -73,14 +73,13 @@
         <div class="container">
             <div id="leftcontentborder"></div>
             <div id="rightcontentborder"></div>
-            <header id="header">{# Translators: Site title #}
+            <header id="header" class=bg-primary>{# Translators: Site title #}
                 <div class="headerlogo">
                     <h1>
-                        <a href="{% url 'root_page' %}" title="{% blocktrans %}Finnish Signbank{% endblocktrans %}">
-                            <img id="logoheadersignbank"
-                                 src="{% static 'img/signbank_logo_laatikko_valkoinen_crop-compressor.png' %}"
-                                 alt="{% blocktrans %}Finnish Signbank{% endblocktrans %}">
+                        <a href="{% url 'root_page' %}" title="{% trans "Swedish Signbank" %}">
+                            <img id="logoheadersignbank" src="{% static 'img/signbank-logo.png' %}" alt="{% trans "Swedish Signbank" %}">
                         </a>
+                        <span>{% trans "Swedish Signbank" %}</span>
                     </h1>
                 </div>
                 <div id="langbar">{% include "langbar.html" %}</div>
@@ -97,28 +96,38 @@
     <footer id="footer">
        <div id="footercontainer" class="container">
             <div class="footerbg">
-                <div class="logoholder">
-                   <a href="https://www.jyu.fi" rel="external">
-                     <img id="logojy" src="{% static 'img/jyu-logo_100-compressor.png' %}" class="logofooter" alt="{% blocktrans %}University of Jyväskylä{% endblocktrans %}">
-                   </a>
-                   <a href="http://www.kuurojenliitto.fi/" rel="external">
-                     <img id="logokl"
-                       {% if LANGUAGE_CODE == 'fi' %}src="{% static 'img/kl-logo_fin_100-compressor.png' %}"
-                       {% elif LANGUAGE_CODE == 'sv' %}src="{% static 'img/kl-logo_sve_100-compressor.png' %}"
-                       {% else %}src="{% static 'img/kl-logo_eng_100-compressor.png' %}"
-                       {% endif %}
-                       class="logofooter" alt="{% blocktrans %}Finnish Association of the Deaf{% endblocktrans %}">
-                   </a>
-                   <a href="https://www.kielipankki.fi/" rel="external">
-                     <img id="logokielipankki" src="{% static 'img/kielipankki_logo_cropped-compressor.png' %}" class="logofooter" alt="{% blocktrans %}The Language Bank of Finland{% endblocktrans %}">
-                   </a>
-                   <a href="https://www.csc.fi" rel="external">
-                     <img id="logocsc" src="{% static 'img/csc_2012_logo-compressor.png' %}" class="logofooter" alt="{% blocktrans %}CSC - IT center for science{% endblocktrans %}">
-                   </a>
-                </div>
-                <div id="license">
-
-                </div>
+                <table id="license">
+                  <tr>
+                    <td style="padding:0">
+                      {% if LANGUAGE_CODE == 'sv' %}
+                        <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/se/" target="_blank">
+                        <img src="{% static 'img/sharerules.png' %}" title="Licens för lexikoninnehåll: CC-BY-NC-SA" >
+                      {% else %}
+                        <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank">
+                        <img src="{% static 'img/sharerules.png' %}" title="Dictionary content license: CC-BY-NC-SA">
+                      {% endif %}
+                      </a>
+                    <td style="text-align:left;padding-left:.5em">
+                      {% if LANGUAGE_CODE == 'sv' %}
+                        Svensk teckenbank skapades och underhålls av:
+                        <a href="http://www.ling.su.se/teckenspr%C3%A5k"
+                        target="_blank">Avdelningen för teckenspråk,
+                        Institutionen för lingvistik, Stockholms
+                        universitet</a>.
+                        <br>Licens för innehållet:
+                        <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/se/" target="_blank">Creative Commons Erkännande/icke-kommersiell/dela-lika 2.5</a>.
+                        License för källkod: <a href="https://github.com/zrajm/FinSL-signbank/blob/master/LICENSE" target="_blank">3-Clause BSD License</a>.
+                      {% else %}
+                        Swedish Signbank created and maintained by:
+                        <a href="https://www.ling.su.se/english/sign-language-section"
+                        target="_blank">Sign Language Section, Department of
+                        Linguistics, Stockholm university</a>.
+                        <br>Content license:
+                        <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/"
+                        target="_blank">Creative Commons Attribution/Non-Commercial/Share-Alike 2.5</a>.
+                        Source code license: <a href="https://github.com/zrajm/FinSL-signbank/blob/master/LICENSE" target="_blank">3-Clause BSD License</a>.
+                      {% endif %}
+                </table>
             </div>
         </div>
     </footer>
