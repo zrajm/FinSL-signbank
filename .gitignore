@@ -1,14 +1,18 @@
+# -*- conf -*-
+\#*#
+.#*
+*~
+*.bak
+*.tmp
+
 .hg/*
 .hgignore
 build/django
-*~
 .DS_Store
 *.pyc
 *.idea*
 
 static/css/.DS_Store
-
-signbank/settings/secret_settings.py
 
 debug.log
 /venv/
@@ -17,3 +21,5 @@ debug.log
 /signbank.db
 /codecov.sh
 /signbank/settings/settings_secret.py
+
+#[eof]
