@@ -376,7 +376,7 @@ msgstr "Beskrivning"
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:25
 #: signbank/dictionary/templates/dictionary/manage_lexicons.html:63
 msgid "Copyright"
-msgstr "Copyright"
+msgstr "Upphovsrätt"
 
 #: signbank/dictionary/models.py:42
 msgid "Admins"
@@ -859,7 +859,7 @@ msgstr "Gör privat"
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:105
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:224
 msgid "Set public"
-msgstr "Gör publikt"
+msgstr "Gör publik"
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:151
 msgid "Search results:"
@@ -1349,7 +1349,7 @@ msgstr "Beskrivning av lexikon"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:122
 msgid "Copyright and license:"
-msgstr "Copyright och licens:"
+msgstr "Upphovsrätt och licens:"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_list.html:125
 msgid "ELAN ECV"
@@ -1815,8 +1815,11 @@ msgid ""
 "The requested page was not found on the server. Please use\n"
 "the menu above to navigate to another part of the site. \n"
 "If you continue to experience problems, please contact\n"
-"the webmaster at "
+"the project manager at "
 msgstr ""
+"Den begärda sidan kunde inte hittas. Använd menyn\n"
+"ovan för att gå till en annan del av webbplatsen. Om\n"
+"problemet kvarstår, vänligen meddela projektansvarig på "
 
 #. Translators: Title of page - error 500
 #: templates/500.html:10
@@ -1833,9 +1836,9 @@ msgstr ""
 #: templates/baselayout.html:13 templates/baselayout.html:16
 msgctxt "meta"
 msgid "Swedish Signbank is a lexical database of Swedish Sign Language (STS)."
-msgstr "Swedish teckenbank är en lexikal databas över Svenskt Teckenspråk (STS)."
+msgstr "Svensk teckenbank är en lexikal databas över Svenskt Teckenspråk (STS)."
 
-#: templates/baselayout.html:93
+#: templates/baselayout.html:92
 msgid "(No content)"
 msgstr "(Inget innehåll)"
 
