@@ -1134,27 +1134,31 @@ msgstr "Importera glosor från CSV-fil"
 msgid ""
 "CSV-file should be constructed so that the first column is gloss and\n"
 "                optionally the second column is gloss in english"
-msgstr ""
+msgstr "CSV-filen måste bestå av rader med komma-separerade värden:"
+"<ul>"
+"<li>1:a värdet är glosa på svenska"
+"<li>2:a värdet är glosa på engelska (eller lämnas tomt).</ul>"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:16
 msgid ""
 "The first row of the file will not be added because it is expected to be the "
 "column\n"
 "                headers."
-msgstr ""
+msgstr "1:a raden i filen förväntas vara rubriker och ignoreras vid import."
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:18
 msgid ""
 "The CSV-file's character set needs to be UTF-8. When exporting the CSV-"
 "file,\n"
 "                make sure that you select UTF-8 charset."
-msgstr ""
+msgstr "CSV-filen du importerar måste vara i UTF-8 format. (Välj "
+"teckenkodning UTF-8 eller Unicode när du skapar din CSV-fil)."
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:27
 msgid ""
 "Make sure that you selected the correct\n"
 "                Dataset before submitting!"
-msgstr ""
+msgstr "OBS! Glöm inte att välja rätt dataset (ovan) innan du importerar din CSV!"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:30
 msgid "Import glosses from CSV"
@@ -1166,7 +1170,7 @@ msgstr "Bekräfta import av CSV"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:10
 msgid "Glosses to be added to"
-msgstr "Glosor kommer läggas till för"
+msgstr "Glosor som kommer läggas till i"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv_confirmation.html:11
 msgid "Total number of glosses to be added:"
@@ -1522,7 +1526,7 @@ msgstr "Den angivna CSV-filen uppfyller inte kraven eller så har något annat g
 
 #: signbank/dictionary/update.py:612
 msgid "Cancelled adding CSV data."
-msgstr "Avbröt importeranted av CSV-datat."
+msgstr "Avbröt import av CSV-fil."
 
 #: signbank/dictionary/update.py:639
 msgid "Glosses were added succesfully."
