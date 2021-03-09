@@ -1,0 +1,296 @@
+#!/bin/python3
+# -*- coding: utf-8 -*-
+#
+# Docstrings are in googledoc format. HTML processing is done using
+# MechanicalSoup (rather than the older Mechanize module).
+#
+"""View or modify information in a Signbank.
+Usage:
+  signbank-scripter [options] lexicon [LEXICON_ID]
+  signbank-scripter [options] gloss GLOSS_ID [FIELD VALUE]...
+
+Options:
+  -h,--help              display this help text and exit
+  -l,--login=USER[:PASS] login name (and optional password) for signbank
+  -b,--base=URL          signbank address [default: https://signbank.ling.su.se]
+  -v,--version           display version information and exit
+
+Commands:
+  gloss    View or edit the data of a gloss. If FIELD(s) and VALUE(s) are
+           given, then gloss will be modified, otherwise the current content is
+           displayed.
+  lexicon  List lexicons, or (with LEXICON_ID) list the glosses in the lexicon.
+
+FIXME (Not yet implemented):
+  * Output should be prettier (choice between CSV, TSV and formatted tables)
+  * Individual documentation of subcommands (a la git)
+  * Add docstrings for all functions
+  * Keep login & password around for a bit (spawn a daemon that dies after
+    some timeout, maybe communicating via named pipes?)
+  * When showing gloss, more fields are displayed that one can (presumably)
+    modify. Fix this.
+ 
+"""
+__title__     = 'sign-talk (STS-Signbank)'
+__version__   = '0.1'
+__author__    = 'zrajm <zrajm@zrajm.org>'
+__copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
+__license__   = 'GPLv2'
+__info__ = """License GPLv2: GNU GPL version 2 <https://www.gnu.org/licenses/gpl-2.0.html>.
+You are free to share and modify this program, as long as your version use
+the same license, and give credit to the original author.
+
+Written by zrajm for the Swedish Signbank <(http://signbank.ling.su.se/>,
+Sign Language Section, Department of Linguistics, Stockholm university."""
+
+import re
+import sys
+
+class SignbankError(Exception): pass
+class Signbank:
+    """Signbank related stuff."""
+    browser = None
+    base_url = None
+    username = None
+    password = None
+    urls = {
+        'login'        : 'accounts/login/',
+        'show_gloss'   : 'dictionary/advanced/gloss/',
+        'edit_gloss'   : 'dictionary/update/gloss/',
+        'list_glosses' : 'dictionary/advanced/?paginate_by=9999999&dataset=',
+        'list_lexicons': 'dictionary/advanced/',
+    }
+    login_form = 'login'
+
+    def __init__(self, base=None, user=None, password=None):
+        if not re.search(r'^\w+://', base):
+            base = f'https://{base}'
+        if not password:
+            if not sys.stdin.isatty():
+                raise SignbankError(f"Cannot read password from standard input."
+                    f"\n    Use '--login=USER:PASS' for password when STDIN is not a terminal.")
+            from getpass import getpass
+            password = getpass(f"{user}'s password: ")
+
+        self.base_url = base
+        self.username = user
+        self.password = password
+
+    def page(self, name, xtra=''):
+        return f'{self.base_url}/{self.urls[name]}{xtra}'
+
+    def login(self):
+        from mechanicalsoup import (LinkNotFoundError, StatefulBrowser)
+        self.browser = StatefulBrowser(
+            soup_config = { 'features': 'html.parser' }
+        )
+        url = self.page('login')
+        response = self.open(url)
+        form = self.select_form(self.login_form)
+        form.set('username', self.username)
+        form.set('password', self.password)
+        response = self.__fetch(lambda: self.browser.submit_selected())
+
+        # We are now logged in and a login form should NOT be present on the
+        # returned page. Therefore we look for the login form, and raise an
+        # exception if it can be found.
+        try:
+            form = self.browser.select_form(f'[name="{self.login_form}"]')
+            msg = form.form.select_one('.alert') # get form error message
+            if msg:
+                msg.button.extract()           # remove HTML close button
+                msg = ''.join(msg.stripped_strings)
+            raise SignbankError(
+                f"Cannot login as user '{self.username}' (Bad username/password?)" +
+                (f"\n    Signbank: {msg}" if msg else '')
+            )
+        except LinkNotFoundError:
+            pass
+
+    def select_form(self, form_name):
+        from mechanicalsoup import LinkNotFoundError
+        try:
+            return self.browser.select_form(f'[name="{form_name}"]')
+        except LinkNotFoundError as e:
+            raise SignbankError(
+                f"Cannot find form named '{form_name}' on page " +
+                f"'{self.browser.get_url()}'.\n")
+
+    def open(self, *args, **kwargs):
+        """Wrapper for MechanicalSoup's browser.open()"""
+        return self.__fetch(lambda: self.browser.open(*args, **kwargs))
+
+    def __fetch(self, fetch_func):
+        """Wrapper for all MechanicalSoup's methods that return a response."""
+        if not self.browser:
+            self.login()
+        from requests.exceptions import RequestException
+        try:
+            response = fetch_func()
+        except RequestException as e: raise SignbankError(
+                f'Cannot load signbank page.\n'
+                f'    Error: {type(e).__name__}: {e}')
+        if not response.ok:
+            raise SignbankError(
+                f"Cannot load signbank page '{self.browser.get_url()}'.\n"
+                f'    Server response: {response.status_code} - {response.reason}')
+        return response
+
+    def get_csrf_token(self):
+        """Returns first occurence the CSRF token (string) on a signbank page.
+
+        A CSRF (Cross-Site Request Forgery) token occurs on all pages that have
+        (at least one) form which require user privileges. If there are
+        multiple forms, the CSRF token have the same value in all of them.
+
+        For a CSRF token are only present if you a) are logged in to the
+        signbank and b) on pages with forms that require user privileges (forms
+        that update the database content).
+
+        Args:
+          response(mechanicalsoup.response): A HTML response with a signbank page.
+
+        Returns:
+          string: CSRF token.
+
+        Raises:
+          AttributeError: No CSRF token could be found.
+        """
+        return self.browser.get_current_page().select_one(
+            f'input[name="csrfmiddlewaretoken"]'
+        ).get('value');
+
+    def list_lexicons(self):
+        lexicon_url = self.page('list_lexicons')
+        response = self.open(lexicon_url)
+        column_name = response.soup.select_one('label[for="id_dataset"]').text
+        return [
+            ['ID', column_name],
+            *map(
+                lambda option: [option.get('value'), option.text],
+                response.soup.select('select[name="dataset"] option')),
+        ]
+
+    def list_glosses(self, lexicon_id):
+        """List glosses in lexicon."""
+        if not re.search(r'^\d+$', lexicon_id):
+            raise SignbankError(f"LEXICON_ID must be numeric (not '{lexicon_id}')")
+        def space_cleanup(x):
+            return re.sub(r'\s+', ' ', (' '.join(x.stripped_strings)))
+        list_url = self.page('list_glosses', lexicon_id)
+        response = self.open(list_url)   # FIXME: should be get request(?)
+        main_table = response.soup.select_one('main table')
+        return [
+            ['ID', *map(space_cleanup, main_table.select('thead tr th'))],
+            *map(
+                lambda row: [row.a['href'].split('/')[-1], *map(space_cleanup, row.select('td'))],
+                main_table.select('tbody tr')),
+        ]
+
+    def show_gloss(self, gloss_id):
+        """Display info of a gloss_id."""
+        if not re.search(r'^\d+$', gloss_id):
+            raise SignbankError(f"GLOSS_ID must be numeric (not '{gloss_id}')")
+        view_url = self.page('show_gloss', gloss_id)
+        response = self.open(view_url)
+        return map(
+            lambda tag: [tag.get('id'), [*tag.contents, ''][0]],
+            response.soup.select('div#definition .edit'),
+        )
+
+    def edit_gloss(self, gloss_id, fields, values):
+        if not re.search(r'^\d+$', gloss_id):
+            raise SignbankError(f"GLOSS_ID must be numeric (not '{gloss_id}')")
+        view_url = self.page('show_gloss', gloss_id)
+        response = self.open(view_url)
+        token    = self.get_csrf_token()
+        print('Setting:')
+        modify_url = self.page('edit_gloss', gloss_id)
+        for (field, value) in zip(fields, values):
+            print(f"  {field}: '{value}'")
+            self.browser.post(
+                modify_url,
+                data = {
+                    'csrfmiddlewaretoken': token,
+                    'id': field,
+                    'value': value,
+                },
+            )
+
+def prettify_docopt_error(e):
+    from os.path import basename
+    from sys import argv
+    msg = None
+    if type(e).__name__ == 'DocoptExit':       # prettify docopt errors
+        # Remove 'usage:' info.
+        msg = re.sub(r'(?:^|\s+)usage:.*', '', e.code, flags=re.IGNORECASE | re.DOTALL)
+        msg = re.sub(r'-\S+', "Option '\g<0>'", msg) # quote option names
+        if not msg:                            # if msg is empty
+            msg = 'Bad arguments'
+        # For docopt errors, append helpful tip.
+        msg += f"\nTry '{__file__} --help' for more information."
+    return (basename(__file__) + ': ' + (msg or str(e)))
+
+################################################################################
+##  Main
+
+def main(args):
+    # Docopt command line values.
+    base_url = args['--base']                  # required
+    gloss_id = args['GLOSS_ID']                # optional (string)
+    fields   = args['FIELD']                   # optional (list)
+    values   = args['VALUE']                   # optional (list)
+    (username, password) = map(
+        lambda x: x or None,
+        [*(args['--login'] or '').split(':', 1), ''][:2],
+    )
+    if not username:
+        raise SignbankError("Option '--login=USER[:PASS]' is required")
+
+    signbank = Signbank(base_url, username, password)
+    out = [];
+    if args['gloss']:                          # 'gloss' subcommand
+        if values:                             #   with values
+            signbank.edit_gloss(gloss_id, fields, values)
+        else:                                  #   without values
+            out = signbank.show_gloss(gloss_id)
+    elif args['lexicon']:                      # 'gloss' subcommand
+        lexicon_id = args['LEXICON_ID']
+        if lexicon_id:                         #   with values
+            out = signbank.list_glosses(lexicon_id)
+        else:
+            out = signbank.list_lexicons()
+    for cols in out:
+        print('\t'.join(cols))
+
+################################################################################
+## Invoke program
+
+# Which (Debian or pip) package to install when a Python module is missing.
+package_name = {
+    'docopt':         { 'deb': 'python3-docopt',         'pip': 'docopt' },
+    'mechanicalsoup': { 'deb': 'python3-mechanicalsoup', 'pip': 'MechanicalSoup' },
+}
+if __name__ == '__main__':
+    try:
+        from sys import stderr
+        from docopt import (docopt, DocoptExit)
+        # Parse command line args with docopt and pass them to main().
+        main(docopt(__doc__, version = f'{__title__} {__version__}\n{__copyright__}\n{__info__}'))
+    except KeyboardInterrupt:
+        print('\n*** BREAK: Killed by ^C (SIGINT signal)', file = stderr)
+        raise SystemExit(130)
+    except (DocoptExit, SignbankError) as e:
+        print(prettify_docopt_error(e), file = stderr)
+        raise SystemExit(5)
+    except ModuleNotFoundError as e:
+        print(f"ERROR: Cannot import the required Python module '{e.name}'.\n" + (
+            f"To install, run one of following commands (depending on your system):\n\n"
+            f"    sudo apt {package_name[e.name]['deb']}   # (Debian/Ubuntu etc.)\n"
+            f"    pip install {package_name[e.name]['pip']}        # (Python installer)\n"
+            if e.name in package_name.keys() else
+            f"    (Are you sure that that module is installed on your system?)"
+        ), file = stderr)
+        raise SystemExit(10)
+
+#[eof]
