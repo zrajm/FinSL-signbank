@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
 # Docstrings are in googledoc format. HTML processing is done using
@@ -65,13 +65,6 @@ class Signbank:
     def __init__(self, base=None, user=None, password=None):
         if not re.search(r'^\w+://', base):
             base = f'https://{base}'
-        if not password:
-            if not sys.stdin.isatty():
-                raise SignbankError(f"Cannot read password from standard input."
-                    f"\n    Use '--login=USER:PASS' for password when STDIN is not a terminal.")
-            from getpass import getpass
-            password = getpass(f"{user}'s password: ")
-
         self.base_url = base
         self.username = user
         self.password = password
@@ -84,6 +77,12 @@ class Signbank:
         self.browser = StatefulBrowser(
             soup_config = { 'features': 'html.parser' }
         )
+        if not self.password:
+            if not sys.stdin.isatty():
+                raise SignbankError(f"Cannot read password from standard input."
+                    f"\n    Use '--login=USER:PASS' for password when STDIN is not a terminal.")
+            from getpass import getpass
+            self.password = getpass(f"{self.username}'s password: ")
         url = self.page('login')
         response = self.open(url)
         form = self.select_form(self.login_form)
@@ -286,8 +285,8 @@ if __name__ == '__main__':
     except ModuleNotFoundError as e:
         print(f"ERROR: Cannot import the required Python module '{e.name}'.\n" + (
             f"To install, run one of following commands (depending on your system):\n\n"
-            f"    sudo apt {package_name[e.name]['deb']}   # (Debian/Ubuntu etc.)\n"
-            f"    pip install {package_name[e.name]['pip']}        # (Python installer)\n"
+            f"    sudo apt install {package_name[e.name]['deb']}  # (Debian/Ubuntu etc.)\n"
+            f"    pip install {package_name[e.name]['pip']}               # (Python installer)\n"
             if e.name in package_name.keys() else
             f"    (Are you sure that that module is installed on your system?)"
         ), file = stderr)
