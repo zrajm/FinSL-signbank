@@ -102,11 +102,11 @@ msgstr "Glosrelationer"
 
 #: signbank/dictionary/admin.py:156
 msgid "Publish selected glosses"
-msgstr "Publicera valda glosor"
+msgstr "Publicera markerade glosor"
 
 #: signbank/dictionary/admin.py:157
 msgid "Unpublish selected glosses"
-msgstr "Avpublicera valda glosor"
+msgstr "Avpublicera markerade glosor"
 
 #: signbank/dictionary/admin.py:168
 msgid "Exclude glosses from ECV"
@@ -141,7 +141,7 @@ msgstr "Du har inte behörighet att exportera till CSV."
 
 #: signbank/dictionary/adminviews.py:405
 msgid "You do not have permissions to view glosses of this dataset."
-msgstr "Du har inte behörighet att se glosorna i den här datamängden."
+msgstr "Du har inte behörighet att se glosorna i det här lexikonet."
 
 #. Translators: RELATION_ROLE_CHOICES
 #: signbank/dictionary/choicelists.py:529
@@ -190,14 +190,15 @@ msgstr "Du har inte behörighet att lägga till taggar till glosor i det här le
 #: signbank/video/templates/addvideos.html:32
 #: signbank/video/templates/uploaded_glossvideos.html:16
 msgid "Dataset"
-msgstr "Datamängd"
+msgstr "Lexikon"
 
 #. Translators: exception ValidationError
 #: signbank/dictionary/forms.py:37
 msgid ""
 "This Gloss value already exists in the chosen Dataset. Please choose another "
 "value for Gloss."
-msgstr "Det här glosvärdet finns redan i den valda datamängden. Du måste välja ett annat värde för glosan."
+msgstr "Det här glosan finns redan i lexikonet. Välj ett annat värde för "
+"glosan."
 
 #: signbank/dictionary/forms.py:67
 #: signbank/dictionary/templates/dictionary/admin_gloss_list.html:188
@@ -356,7 +357,7 @@ msgstr "Är publik"
 
 #: signbank/dictionary/models.py:31
 msgid "Is this dataset is public or private?"
-msgstr "Är den här datamängden publik eller privat?"
+msgstr "Är det här lexikonet publikt eller privat?"
 
 #: signbank/dictionary/models.py:35
 msgid "Translation equivalent languages"
@@ -384,7 +385,7 @@ msgstr "Administratörer"
 
 #: signbank/dictionary/models.py:46
 msgid "Access dataset"
-msgstr "Skapa tillgång till datamängd"
+msgstr "Skapa tillgång till lexikon"
 
 #: signbank/dictionary/models.py:48 templates/infopage.html:110
 msgid "Lexicon"
@@ -532,7 +533,7 @@ msgstr "Publicera den här glosan i den publika listan med glosor."
 
 #: signbank/dictionary/models.py:316
 msgid "Exclude from ECV"
-msgstr "Exkludera från ECV"
+msgstr "Exkluderad från ECV"
 
 #: signbank/dictionary/models.py:317
 msgid "Exclude from ELAN externally controlled vocabularies (ECV)"
@@ -540,11 +541,11 @@ msgstr "Exkludera den här glosan från ELAN ECV (externt kontrollerad ordlista)
 
 #: signbank/dictionary/models.py:319
 msgid "Glosses dataset"
-msgstr "Datamängd för glosor"
+msgstr "Glosans lexikon"
 
 #: signbank/dictionary/models.py:320
 msgid "Dataset a gloss is part of"
-msgstr "Datamängd som glosan är del av."
+msgstr "Namn på lexikonet som glosan ingår i."
 
 #. Translators: Help text for Gloss field: idgloss
 #: signbank/dictionary/models.py:325
@@ -1134,31 +1135,31 @@ msgstr "Importera glosor från CSV-fil"
 msgid ""
 "CSV-file should be constructed so that the first column is gloss and\n"
 "                optionally the second column is gloss in english"
-msgstr "CSV-filen måste bestå av rader med komma-separerade värden:"
+msgstr "CSV-filen ska bestå av rader med komma-separerade fält:"
 "<ul>"
-"<li>1:a värdet är glosa på svenska"
-"<li>2:a värdet är glosa på engelska (eller lämnas tomt).</ul>"
+"<li>1:a fältet ska innehålla svensk glosa."
+"<li>2:a fältet ska innehålla engelsk glosa (kan lämnas tom).</ul>"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:16
 msgid ""
 "The first row of the file will not be added because it is expected to be the "
 "column\n"
 "                headers."
-msgstr "1:a raden i filen förväntas vara rubriker och ignoreras vid import."
+msgstr "OBS! Hela 1:a raden ignoreras vid import! (Den förväntas bara innehålla rubriker)."
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:18
 msgid ""
 "The CSV-file's character set needs to be UTF-8. When exporting the CSV-"
 "file,\n"
 "                make sure that you select UTF-8 charset."
-msgstr "CSV-filen du importerar måste vara i UTF-8 format. (Välj "
-"teckenkodning UTF-8 eller Unicode när du skapar din CSV-fil)."
+msgstr "Filen du importerar måste vara i UTF-8 format. (Välj ’UTF-8’ eller "
+"’Unicode’ som teckenkodning i programmet du använder för att skapa din "
+"CSV-fil)."
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:27
-msgid ""
-"Make sure that you selected the correct\n"
+msgid "Make sure that you selected the correct\n"
 "                Dataset before submitting!"
-msgstr "OBS! Glöm inte att välja rätt dataset (ovan) innan du importerar din CSV!"
+msgstr "OBS! Kom ihåg att välja rätt lexikon innan du importerar!"
 
 #: signbank/dictionary/templates/dictionary/import_gloss_csv.html:30
 msgid "Import glosses from CSV"
@@ -1420,7 +1421,7 @@ msgstr "Uppladdning klar."
 
 #: signbank/dictionary/update.py:39
 msgid "You do not have permissions to edit Glosses of this dataset/lexicon."
-msgstr "Du har inte behörighet att redigera glosor i den här datamängden/lexikonet."
+msgstr "Du har inte behörighet att redigera glosor i det här lexikonet."
 
 #. Translators: HttpResponseBadRequest
 #: signbank/dictionary/update.py:84
@@ -1642,7 +1643,7 @@ msgstr "Glosan som den här glosvideon är relaterad till."
 
 #: signbank/video/models.py:52
 msgid "Glossvideo dataset"
-msgstr "Datamängd för glosvideon"
+msgstr "Glosvideons lexikon"
 
 #: signbank/video/models.py:53
 msgid ""
@@ -1709,7 +1710,7 @@ msgstr "Koppla glosvideor till glosor"
 
 #: signbank/video/templates/uploaded_glossvideos.html:15
 msgid "Select the dataset you want to work with!"
-msgstr "Välj vilken datamängd du vill använda!"
+msgstr "Välj vilket lexikon du vill använda!"
 
 #: signbank/video/templates/uploaded_glossvideos.html:18
 msgid "Ok"
