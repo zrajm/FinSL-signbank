@@ -1,13 +1,18 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
-# Docstrings are in googledoc format. HTML processing is done using
-# MechanicalSoup (rather than the older Mechanize module).
+# Docstrings are in googledoc format.
+# [https://github.com/google/styleguide/blob/gh-pages/pyguide.md]
+# [http://daouzli.com/blog/docstring.html#googledoc]
+# [https://gist.github.com/redlotus/3bc387c2591e3e908c9b63b97b11d24e]
+#
+# HTML processing is done using MechanicalSoup (rather than the older Mechanize
+# module).
 #
 """View or modify information in a Signbank.
 Usage:
-  signbank-scripter [options] lexicon [LEXICON_ID]
-  signbank-scripter [options] gloss GLOSS_ID [FIELD VALUE]...
+  signbanker [options] lexicon [LEXICON_ID]
+  signbanker [options] gloss GLOSS_ID [FIELD VALUE]...
 
 Options:
   -h,--help              display this help text and exit
@@ -21,7 +26,9 @@ Commands:
            displayed.
   lexicon  List lexicons, or (with LEXICON_ID) list the glosses in the lexicon.
 
-FIXME (Not yet implemented):
+TODO (Not yet implemented):
+  * Add 'help [COMMAND]'
+    (and change help to "Try 'signbanker help [COMMAND]' for more info'.)
   * Output should be prettier (choice between CSV, TSV and formatted tables)
   * Individual documentation of subcommands (a la git)
   * Add docstrings for all functions
@@ -29,10 +36,10 @@ FIXME (Not yet implemented):
     some timeout, maybe communicating via named pipes?)
   * When showing gloss, more fields are displayed that one can (presumably)
     modify. Fix this.
- 
-"""
-__title__     = 'sign-talk (STS-Signbank)'
-__version__   = '0.1'
+  * Default using current login name if no --login option used.
+ """
+__title__     = 'signbanker (STS-Signbank)'
+__version__   = '0.1.1'
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -253,7 +260,7 @@ def main(args):
             signbank.edit_gloss(gloss_id, fields, values)
         else:                                  #   without values
             out = signbank.show_gloss(gloss_id)
-    elif args['lexicon']:                      # 'gloss' subcommand
+    elif args['lexicon']:                      # 'lexicon' subcommand
         lexicon_id = args['LEXICON_ID']
         if lexicon_id:                         #   with values
             out = signbank.list_glosses(lexicon_id)
@@ -271,6 +278,7 @@ package_name = {
     'mechanicalsoup': { 'deb': 'python3-mechanicalsoup', 'pip': 'MechanicalSoup' },
 }
 if __name__ == '__main__':
+    class DocoptExit(Exception): pass          # used if Docopt isn't installed
     try:
         from sys import stderr
         from docopt import (docopt, DocoptExit)
@@ -283,7 +291,7 @@ if __name__ == '__main__':
         print(prettify_docopt_error(e), file = stderr)
         raise SystemExit(5)
     except ModuleNotFoundError as e:
-        print(f"ERROR: Cannot import the required Python module '{e.name}'.\n" + (
+        print(f"ERROR: Cannot load the required Python module '{e.name}'.\n" + (
             f"To install, run one of following commands (depending on your system):\n\n"
             f"    sudo apt install {package_name[e.name]['deb']}  # (Debian/Ubuntu etc.)\n"
             f"    pip install {package_name[e.name]['pip']}               # (Python installer)\n"
