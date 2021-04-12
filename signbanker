@@ -34,12 +34,11 @@ TODO (Not yet implemented):
     some timeout, maybe communicating via named pipes?)
   * When showing gloss, more fields are displayed than one can (presumably)
     modify. Fix this.
-  * Default using current login name if no --login option used.
   * Add support for adding / removing multiple-valued field (like 'URL' --
     called 'glossurl-NUM' in the backend)
 """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.2.0'                        # https://semver.org/
+__version__   = '0.3.0'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -351,7 +350,8 @@ def main(args):
         raise SystemExit(0)
 
     if not username:
-        raise SignbankError("Option '--login=USER[:PASS]' is required")
+        from getpass import getuser
+        username = getuser()
 
     signbank = Signbank(base_url, username, password)
     out = [];
