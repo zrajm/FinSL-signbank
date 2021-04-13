@@ -17,7 +17,7 @@ Usage:
   signbanker [options] lexicon [LEXICON_ID]
 
 Options:
-  -b,--base=URL           signbank address [default: https://signbank.ling.su.se]
+  -b,--base=URL           signbank address [default: http://localhost:8000]
   -h,--help               show this help, or help about COMMAND/GUIDE, then exit
   -l,--login=USER[:PASS]  username/password for signbank login [default: %s]
   -v,--version            display version information and exit
@@ -41,7 +41,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.3'                        # https://semver.org/
+__version__   = '0.3.4'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
