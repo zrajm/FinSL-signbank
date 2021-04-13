@@ -11,16 +11,16 @@
 #
 """View or modify information in a Signbank.
 Usage:
-  signbanker [OPTION]...
-  signbanker [OPTION]... gloss GLOSS_ID [FIELD VALUE]...
-  signbanker [OPTION]... help [COMMAND] [X]...
-  signbanker [OPTION]... lexicon [LEXICON_ID]
+  signbanker [options]
+  signbanker [options] gloss GLOSS_ID [FIELD VALUE]...
+  signbanker [options] help [COMMAND] [IGNORED]...
+  signbanker [options] lexicon [LEXICON_ID]
 
 Options:
-  -b,--base=URL          signbank address [default: https://signbank.ling.su.se]
-  -h,--help              show this help, or help about COMMAND, then exit
-  -l,--login=USER[:PASS] login name (and optional password) for signbank
-  -v,--version           display version information and exit
+  -b,--base=URL           signbank address [default: https://signbank.ling.su.se]
+  -h,--help               show this help, or help about COMMAND, then exit
+  -l,--login=USER[:PASS]  username/password for signbank login [default: %s]
+  -v,--version            display version information and exit
 
 Commands:
   gloss    show or edit the data of individual gloss
@@ -38,7 +38,7 @@ TODO (Not yet implemented):
     called 'glossurl-NUM' in the backend)
 """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.1'                        # https://semver.org/
+__version__   = '0.3.2'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -251,7 +251,7 @@ def get_command(args):
 ##  Command Line Functions
 
 def cmd_gloss(signbank, gloss_id, fields = [], values = []):
-    """signbanker [OPTION]... gloss GLOSS_ID [FIELD VALUE]...
+    """signbanker [options] gloss GLOSS_ID [FIELD VALUE]...
 
     Without FIELD/VALUE pairs, output all fields for given gloss. Each field is
     output on a separate line, with field name first followed whitespace, and
@@ -270,35 +270,46 @@ def cmd_gloss(signbank, gloss_id, fields = [], values = []):
     else:
         return signbank.show_gloss(gloss_id)
 
-def cmd_help(command = None):
-    """signbanker [OPTION]... (help|--help) [COMMAND]
+def cmd_help(command = None, raw = None):
+    """signbanker [options] help [COMMAND]
+    signbanker [options] (-h|--help) [COMMAND]
+    signbanker [options] [COMMAND] (-h|--help)
 
-    Witout COMMAND, output a general help message, then exit.
+    Output help for COMMAND, or, if no COMMAND is given, general usage
+    information.
 
-    With COMMAND, output a more detailed help message for the given signbanker
-    command, then exit.
-
-    When using the option form (--help, or -h), only the first occurring
-    COMMAND (if any) will be considered, all other options and argument will be
-    ignored. This allows you to tuck on the '--help' option anywhere on the
-    command line to get more information about the current command. The 'help'
-    command however, must always occur first on the command line.
+    The option --help (or -h) may be put anywhere on the command line, and will
+    display information about COMMAND (if any), ignoring all other options and
+    arguments.
 
     """
     from inspect import cleandoc
-    try:
-        docstr = eval(f'cmd_{command}.__doc__') if command else __doc__
-    except NameError:
+    from getpass import getuser
+    if __doc__ == None:
         raise SignbankError(
-            f"Unknown signbanker command '{command}'" +
-            f"\nTry '{__file__} help' to list available commands.")
-    docstr = docstr.replace(' [X]...', '')
-
-    print(cleandoc(docstr))
-    raise SystemExit(0)
+            f"Required docstrings not found in program file\n" +
+            "    (This program cannot be run with the Python '-OO' option!)")
+    if command:
+        try:
+            docstr =  eval(f'cmd_{command}.__doc__')
+        except NameError:
+            raise SignbankError(
+                f"Unknown signbanker command '{command}'" +
+                f"\nTry '{__file__} help' to list available commands.")
+    else:
+        # Expand docstring --login '[default: %s]' with current username here.
+        docstr = __doc__ % getuser()
+    if raw:
+        # For passing to Docopt.
+        return docstr
+    else:
+        # Prettify docstring somewhat for output to human eyes.
+        return cleandoc(docstr
+            .replace(' [IGNORED]...', '')
+            .replace('[options]', '[OPTION]...'))
 
 def cmd_lexicon(signbank, lexicon_id = None):
-    """signbanker [OPTION]... lexicon [LEXICON_ID]
+    """signbanker [options] lexicon [LEXICON_ID]
 
     Without LEXICON_ID, output list of lexicons found in the signbank. The
     following columns are output:
@@ -342,17 +353,16 @@ def main(args):
     if args['--help']:
         args['COMMAND'] = get_command(args)
         args['help'] = True
-    if args['help']:
-        cmd_help(args['COMMAND'])
 
+    # Informational commands.
+    if args['help']:
+        print(cmd_help(args['COMMAND']))
+        raise SystemExit(0)
     if args['--version']:
         print(f'{__title__} {__version__}\n{__copyright__}\n{__info__}')
         raise SystemExit(0)
 
-    if not username:
-        from getpass import getuser
-        username = getuser()
-
+    # Signbank commands.
     signbank = Signbank(base_url, username, password)
     out = [];
     if args['gloss']:                          # 'gloss' subcommand
@@ -375,15 +385,8 @@ if __name__ == '__main__':
     try:
         from sys import stderr
         from docopt import (docopt, DocoptExit)
-        if __doc__ == None:
-            raise SignbankError(
-                "Cannot find docstrings " +
-                "(Cannot run with Python '-OO' option!)")
         # Parse command line args with docopt and pass them to main().
-        main(docopt(
-            __doc__.replace('[OPTION]...', '[options]'),
-            help = False,
-        ))
+        main(docopt(cmd_help(raw = True), help = False))
     except KeyboardInterrupt:
         print('\n*** BREAK: Killed by ^C (SIGINT signal)', file = stderr)
         raise SystemExit(130)
