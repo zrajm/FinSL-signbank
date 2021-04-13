@@ -41,7 +41,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.4'                        # https://semver.org/
+__version__   = '0.3.5'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -92,7 +92,8 @@ class Signbank:
                 raise SignbankError(f"Cannot read password from standard input."
                     f"\n    Use '--login=USER:PASS' for password when STDIN is not a terminal.")
             from getpass import getpass
-            self.password = getpass(f"{self.username}'s password: ")
+            self.password = getpass(f"Signbank: {self.base_url}\n" +
+                                    f"{self.username}'s password: ")
         url = self.page('login')
         response = self.open(url)
         form = self.select_form(self.login_form)
