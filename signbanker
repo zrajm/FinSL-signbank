@@ -38,7 +38,7 @@ TODO (Not yet implemented):
     called 'glossurl-NUM' in the backend)
 """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.0'                        # https://semver.org/
+__version__   = '0.3.1'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -99,7 +99,7 @@ class Signbank:
 
         # We are now logged in and a login form should NOT be present on the
         # returned page. Therefore we look for the login form, and raise an
-        # exception if it can be found.
+        # exception if the login form EXISTS on the page.
         try:
             form = self.browser.select_form(f'[name="{self.login_form}"]')
             msg = form.form.select_one('.alert') # get form error message
@@ -265,9 +265,9 @@ def cmd_gloss(signbank, gloss_id, fields = [], values = []):
     unfortunately not yet be modified with this tool.)
 
     """
-    if values:                             #   with values
+    if values:
         signbank.edit_gloss(gloss_id, fields, values)
-    else:                                  #   without values
+    else:
         return signbank.show_gloss(gloss_id)
 
 def cmd_help(command = None):
@@ -319,7 +319,7 @@ def cmd_lexicon(signbank, lexicon_id = None):
 
     Output is in a tab-separated format.
     """
-    if lexicon_id:                         #   with values
+    if lexicon_id:
         return signbank.list_glosses(lexicon_id)
     else:
         return signbank.list_lexicons()
