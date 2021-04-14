@@ -17,15 +17,21 @@ Usage:
   signbanker [options] lexicon [LEXICON_ID]
 
 Options:
-  -b,--base=URL           signbank address [default: http://localhost:8000]
-  -h,--help               show this help, or help about COMMAND/GUIDE, then exit
-  -l,--login=USER[:PASS]  username/password for signbank login [default: %s]
-  -v,--version            display version information and exit
+  -b,--base=URL    signbank address [default: http://localhost:8000]
+  -h,--help        show this help, or help about COMMAND/GUIDE, then exit
+  -l,--login=USER  username/password for signbank login [default: %s]
+                   (see also 'signbanker help password')
+  -v,--version     display version information and exit
 
 Commands:
   gloss    show or edit the data of individual gloss
   help     show this help, or help about COMMAND, then exit
   lexicon  list available lexicons, or glosses in a given lexicon
+
+To access a signbank, a URL and login/password is needed. Signbanker tries to
+make life as easy as possible for you by providing reasonable defaults, and
+prompting for a password when needed.
+
 """
 def cmd_todo():
     """TODO (Not yet implemented)
@@ -41,7 +47,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.6'                        # https://semver.org/
+__version__   = '0.3.7'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -289,7 +295,8 @@ def cmd_help(command = None, raw = None):
     arguments.
 
     Guides:
-      todo  list of ideas and planned features for this script
+      todo      list of ideas and planned features for this script
+      password  how to (securely) specify a signbank password
     """
     from inspect import cleandoc
     from getpass import getuser
@@ -343,6 +350,47 @@ def cmd_lexicon(signbank, lexicon_id = None):
         return signbank.list_glosses(lexicon_id)
     else:
         return signbank.list_lexicons()
+
+def cmd_password():
+    """Signbanker will prompt for a password whenever needed, but in some special
+    circumstances this might not work for you (for example if you're running
+    signbanker from some other script). In these cases, you may provide a
+    password after the username (separated by a colon) after the --login option.
+
+    However, you should be aware that executed commands (and their arguments)
+    can be seen by ALL USERS on the same computer. (On Linux this can be done
+    either using the 'ps' command, or by looking at the '/proc/PID/cmdline'
+    file for the command in question.)
+
+    So if you use the PASSWORD part of the --login=USER[:PASSWORD] option,
+    consider the following:
+
+      1. To minimize the risk of someone else being able to see your password
+         while the program is running, only specify a password as an argument
+         on your private computer (a computer where no one else can log in). If
+         another user have access to the same computer, they don't necessarily
+         have to be logged in when the command runs (they could leave a
+         long-running script).
+
+      2. To lessen bad consequences if someone were to get hold of your
+         password, make sure you don't use the same password for your signbank
+         as you do for other services. (It would be kinda embarrassing if
+         someone were to get hold of your password, and then could use that to
+         read your email, access your bank account, and login to your social
+         media, wouldn't it?)
+
+      3. Commands executed in a terminal are usually saved in the shell history
+         (on Linux, this is usually found in ~/.bash_history). The permissions
+         on are such that users on the computer cannot read the history file,
+         but since file remain on the computer, it can be accessed months or
+         even years after it was written, and so it might be worth removing the
+         offending commands (or maybe even deleting the history file) to erase
+         your password. (Some shells allow you to suppress history saving of a
+         command by preceding it with a space, and on Linux you can use the
+         command 'unset HISTFILE' to disable history saving for subsequent
+         commands.)
+
+    """
 
 ################################################################################
 ##  Main
