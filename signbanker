@@ -36,18 +36,31 @@ prompting for a password when needed.
 def cmd_todo():
     """TODO (Not yet implemented)
     ==========================
+    * Caching of credentials -- So that password does not have to be retyped
+      every time script is run (update 'help password' info when this is done).
     * Output should be prettier (choice between CSV, TSV and formatted tables)
+    * Zsh/Bash tab completion for options, commands and command arguments
     * Add docstrings for all functions
-    * Keep login & password around for a bit (spawn a daemon that dies after
-      some timeout, maybe communicating via named pipes?)
     * When showing gloss, more fields are displayed than one can (presumably)
       modify. Fix this.
     * Add support for adding / removing multiple-valued field (like 'URL' --
       called 'glossurl-NUM' in the backend)
+    * Rewrite --help info & processing
+      Should say 'Usage: signbanker [options] COMMAND [ARG]...', and then
+      delegate the ARG processing using the docstring of the respective cmd_*
+      functions, using '[options]' as global options (password, url etc.) but
+      allowing for command-specific options as well.
+    * Add 'profiles' in config file
+      So that one may set up URL, login and password in separate for specific
+      scenarios, and use an option (maybe --config=NAME?) to specify which
+      profile to use?
+    * Disable providing password on the commandline (as it can be read in the
+      process table) -- this requires some adequate other way of providing the
+      password.
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.7'                        # https://semver.org/
+__version__   = '0.3.8'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
