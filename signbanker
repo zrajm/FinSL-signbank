@@ -60,7 +60,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.8'                        # https://semver.org/
+__version__   = '0.3.9'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -439,7 +439,7 @@ def main(args):
         out = cmd_gloss(signbank, gloss_id, fields, values)
     elif args['lexicon']:                      # 'lexicon' subcommand
         out = cmd_lexicon(signbank, args['LEXICON_ID'])
-    for cols in out:
+    for cols in out or []:
         print('\t'.join(cols))
 
 ################################################################################
