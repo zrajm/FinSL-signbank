@@ -40,6 +40,10 @@ def cmd_todo():
       every time script is run (update 'help password' info when this is done).
     * Output should be prettier (choice between CSV, TSV and formatted tables)
     * Zsh/Bash tab completion for options, commands and command arguments
+    * More SSH-like command line, where one host or section argument is
+      mandatory on command line
+    * Support for multiple signbank configurations in same config file
+    * Warn if user tries to connect to non-signbank web page
     * Add docstrings for all functions
     * When showing gloss, more fields are displayed than one can (presumably)
       modify. Fix this.
@@ -60,7 +64,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.9'                        # https://semver.org/
+__version__   = '0.3.10'                       # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -189,7 +193,7 @@ class Signbank:
         """
         return self.browser.get_current_page().select_one(
             f'input[name="csrfmiddlewaretoken"]'
-        ).get('value');
+        ).get('value')
 
     def list_lexicons(self):
         lexicon_url = self.page('list_lexicons')
@@ -250,7 +254,6 @@ class Signbank:
 
 def prettify_docopt_error(e):
     from os.path import basename
-    from sys import argv
     msg = None
     if type(e).__name__ == 'DocoptExit':       # prettify docopt errors
         # Remove 'usage:' info.
@@ -410,7 +413,7 @@ def cmd_password():
 
 def main(args):
     # Docopt command line values.
-    base_url = args['--base']                  # required
+    base_url = args['--base']                  # optional (string)
     gloss_id = args['GLOSS_ID']                # optional (string)
     fields   = args['FIELD']                   # optional (list)
     values   = args['VALUE']                   # optional (list)
@@ -434,7 +437,7 @@ def main(args):
 
     # Signbank commands.
     signbank = Signbank(base_url, username, password)
-    out = [];
+    out = []
     if args['gloss']:                          # 'gloss' subcommand
         out = cmd_gloss(signbank, gloss_id, fields, values)
     elif args['lexicon']:                      # 'lexicon' subcommand
