@@ -29,15 +29,15 @@ Commands:
   lexicon  list available lexicons, or glosses in a given lexicon
 
 To access a signbank, a URL and login/password is needed. Signbanker tries to
-make life as easy as possible for you by providing reasonable defaults, and
-prompting for a password when needed.
+make life as easy as possible for you, by providing reasonable defaults, and
+caching the signbank login token between invocations (the token is normally
+valid for about 14 days, after which you will have to type your password
+again). For a list of help guides, see 'signbanker help help'.
 
 """
 def cmd_todo():
     """TODO (Not yet implemented)
     ==========================
-    * Caching of credentials -- So that password does not have to be retyped
-      every time script is run (update 'help password' info when this is done).
     * Output should be prettier (choice between CSV, TSV and formatted tables)
     * Zsh/Bash tab completion for options, commands and command arguments
     * More SSH-like command line, where one host or section argument is
@@ -64,7 +64,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.3.10'                       # https://semver.org/
+__version__   = '0.4.0'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -82,12 +82,19 @@ import sys
 class SignbankError(Exception): pass
 class Signbank:
     """Signbank related stuff."""
-    browser = None
+    from configparser import ConfigParser
+    from mechanicalsoup import StatefulBrowser
+    browser = StatefulBrowser(soup_config = { 'features': 'html.parser' })
     base_url = None
     username = None
     password = None
+    session_cookie = None
+    session_domain = None
+    session_expiry = None
+    config = ConfigParser()
+    config_file = None
+    config_part = None
     urls = {
-        'login'        : 'accounts/login/',
         'show_gloss'   : 'dictionary/advanced/gloss/',
         'edit_gloss'   : 'dictionary/update/gloss/',
         'list_glosses' : 'dictionary/advanced/?paginate_by=9999999&dataset=',
@@ -95,61 +102,134 @@ class Signbank:
     }
     login_form = 'login'
 
-    def __init__(self, base=None, user=None, password=None):
-        if not re.search(r'^\w+://', base):
-            base = f'https://{base}'
-        self.base_url = base
-        self.username = user
+    def __init__(self, url = None, user = None, password = None, rcfile = None,
+                 default_user = None, default_url = None):
+        self.username = default_user           # help text defaults
+        self.base_url = default_url
+        if rcfile:                             # read config file
+            self.config_file = rcfile
+            self.config_part = 'primary'
+            self.config.read(rcfile)
+            self.base_url = self.get_opt('signbank') or self.base_url
+            self.username = self.get_opt('username') or self.username
+            self.session_cookie = self.get_opt('session_cookie')
+            self.session_domain = self.get_opt('session_domain')
+            self.session_expiry = self.get_opt('session_expiry')
+        self.base_url = url  or self.base_url  # overwrite with options
+        self.username = user or self.username
         self.password = password
+        if not self.config.has_section(self.config_part):
+            self.config.add_section(self.config_part)
+            self.set_opt({
+                'signbank': self.base_url,
+                'username': self.username,
+            })
+        if not re.search(r'^\w+://', self.base_url): # set URL protocol
+            self.base_url = f'https://{url}'
+        if self.session_cookie:                # set browser session cookie
+            self.set_cookie(
+                'sessionid',
+                value   = self.session_cookie,
+                domain  = self.session_domain,
+                expires = self.session_expiry,
+            )
+
+    def get_opt(self, name, section = None):
+        section = section or self.config_part
+        return self.config.get(section, name, fallback = None)
+
+    def set_opt(self, options, section = None):
+        section = section or self.config_part
+        updated = False
+        for (name, value) in options.items():
+            if self.get_opt(name, section) != value:
+                self.config.set(section, name, value)
+                updated = True
+        if updated:
+            with open(self.config_file, 'w') as fh:
+                self.config.write(fh)
+
+    def get_cookie(self, name):
+        """Return the named cookie (it's a Cookie object)."""
+        # https://stackoverflow.com/a/9868665/351162
+        return next((c for c in self.browser.session.cookies if c.name == name), None)
+
+    def set_cookie(self, name, value, **kwargs):
+        """Set a cookie."""
+        self.browser.session.cookies.set(name, value, **kwargs)
+
+    def set_form(self, form, name, value):
+        from mechanicalsoup import LinkNotFoundError
+        try:
+            form.set(name, value)
+        except LinkNotFoundError as e:
+            raise SignbankError(
+                f"Cannot find form element '{name}' on signbank page\n" +
+                f"(This is likely a bug or the signbank served the wrong page.)")
 
     def page(self, name, xtra=''):
         return f'{self.base_url}/{self.urls[name]}{xtra}'
 
     def login(self):
-        from mechanicalsoup import (LinkNotFoundError, StatefulBrowser)
-        self.browser = StatefulBrowser(
-            soup_config = { 'features': 'html.parser' }
-        )
+        """Given that a page containing a login form is already loaded into the
+        StatefulBrowser, this function will fill in and submit the login
+        form."""
+        from getpass import getpass
+        from datetime import datetime
+        # Read password from terminal (if not provided as an option).
         if not self.password:
             try:
-                from getpass import getpass
                 self.password = getpass(
-                    f"Signbank: {self.base_url}\n{self.username}'s password: ")
-            except:
+                    f"Signbank: {self.base_url}\n" +
+                    f"{self.username}'s password: ")
+            except EOFError:
                 raise SignbankError(
-                    f"Cannot read password\n"
-                    f"See 'signbanker help password' on how to specify password.")
-        url = self.page('login')
-        response = self.open(url)
-        form = self.select_form(self.login_form)
-        form.set('username', self.username)
-        form.set('password', self.password)
-        response = self.__fetch(lambda: self.browser.submit_selected())
+                    f"Cannot read password from terminal\n" +
+                    f"See 'signbanker help password' for some tips.")
 
-        # We are now logged in and a login form should NOT be present on the
-        # returned page. Therefore we look for the login form, and raise an
-        # exception if the login form EXISTS on the page.
-        try:
-            form = self.browser.select_form(f'[name="{self.login_form}"]')
-            msg = form.form.select_one('.alert') # get form error message
-            if msg:
-                msg.button.extract()           # remove HTML close button
-                msg = ''.join(msg.stripped_strings)
+        # Fill and submit web form.
+        form = self.select_form(self.login_form)
+        self.set_form(form, 'username', self.username)
+        self.set_form(form, 'password', self.password)
+        self.browser.submit_selected()
+
+        # Save received 'sessionid' cookie into config file.
+        cookie = self.get_cookie('sessionid')
+        if cookie:
+            self.set_opt({
+                'session_cookie':     cookie.value,
+                'session_domain':     cookie.domain,
+                'session_expiry': str(cookie.expires),
+            })
+        else:
+            msg = self.get_form_msg(self.login_form)
             raise SignbankError(
-                f"Cannot login as user '{self.username}' (Bad username/password?)" +
-                (f"\n    Signbank: {msg}" if msg else '')
-            )
-        except LinkNotFoundError:
-            pass
+                f"Login failed for signbank user '{self.username}' " +
+                f"(Misspelled password?)" +
+                f"\nSignbank says: {msg}" if msg else '')
 
     def select_form(self, form_name):
+        """Return named form from browser state, or raise SignbankError if no form was
+        found."""
         from mechanicalsoup import LinkNotFoundError
         try:
             return self.browser.select_form(f'[name="{form_name}"]')
         except LinkNotFoundError as e:
+            url = self.browser.get_url()
             raise SignbankError(
-                f"Cannot find form named '{form_name}' on page " +
-                f"'{self.browser.get_url()}'.\n")
+                f"Cannot find form named '{form_name}' on page '{url}'.")
+
+    def get_form_msg(self, form_name):
+        """Return message from specified form in browser state, or None if no error
+        message was found."""
+        try:
+            msg = self.select_form(form_name).form.select_one('.alert')
+        except SignbankError:
+            return None
+        if msg:
+            msg.button.extract()           # strip HTML close button
+            return ''.join(msg.stripped_strings)
+        return None
 
     def open(self, *args, **kwargs):
         """Wrapper for MechanicalSoup's browser.open()"""
@@ -157,19 +237,30 @@ class Signbank:
 
     def __fetch(self, fetch_func):
         """Wrapper for all MechanicalSoup's methods that return a response."""
-        if not self.browser:
-            self.login()
         from requests.exceptions import RequestException
+
+        # First load the relevant page.
         try:
             response = fetch_func()
-        except RequestException as e: raise SignbankError(
-                f'Cannot load signbank page.\n'
-                f'    Error: {type(e).__name__}: {e}')
-        if not response.ok:
+        except RequestException as e:
             raise SignbankError(
-                f"Cannot load signbank page '{self.browser.get_url()}'.\n"
-                f'    Server response: {response.status_code} - {response.reason}')
-        return response
+                f'Cannot load signbank page.\n'
+                f'Error: {type(e).__name__}: {e}')
+
+        # If login cookie isn't set, login and reload the page. (Pageload will
+        # have failed, but instead we will have gotten the needed login page.)
+        if not self.get_cookie('sessionid'):
+            self.login()
+            # This does not cause an infinite loop, since cookie 'sessionid' is
+            # now GUARANTEED to be set (login() either sets it, or throws an
+            # exception).
+            return self.__fetch(fetch_func)
+
+        if response.ok:
+            return response
+        raise SignbankError(
+            f"Cannot load signbank page '{self.browser.get_url()}'\n" +
+            f'Server response: {response.status_code} - {response.reason}')
 
     def get_csrf_token(self):
         """Returns first occurence the CSRF token (string) on a signbank page.
@@ -275,6 +366,28 @@ def get_command(args):
             except NameError: continue
             return arg
 
+def get_default(optstr):
+    """Return Docopt '[default:...]' from the help text of given option."""
+    from re import search
+    value = search(optstr + r'\b.*\[default: (.*)\]', cmd_help())
+    return value[1] if value else None
+
+def rcfile():
+    """Return name of config file. This hopefully returns a sane filename on
+    Windows, Linux and Mac platforms (only tested on Linux)."""
+    # Inspired by https://stackoverflow.com/a/53222876/351162
+    from os import getenv
+    from os.path import (basename, join)
+    rcfiles = (
+        ('%s', 'APPDATA'),           # on Windows
+        ('%src', 'XDG_CONFIG_HOME'), # XDG desktop standard
+        ('.%src', 'HOME'))           # old Unix 'standard'
+    for (file_tmpl, dir_env) in rcfiles:
+        path = getenv(dir_env)
+        if path:
+            return join(path, file_tmpl % basename(__file__))
+    return None
+
 ################################################################################
 ##  Command Line Functions
 
@@ -332,8 +445,10 @@ def cmd_help(command = None, raw = None):
         # Expand docstring --login '[default: %s]' with current username here.
         docstr = __doc__ % getuser()
     if raw:
-        # For passing to Docopt.
-        return docstr
+        # For passing to Docopt. (Replace all '[default: ...]' with empty
+        # values here. (This is to make inline defaults overrideable by config
+        # file values, and those in turn overrideable by command line args.)
+        return re.sub(r'(?<=\[default: )(.*)(?=\])', '', docstr, flags=re.I)
     else:
         # Prettify docstring somewhat for output to human eyes.
         return cleandoc(docstr
@@ -436,7 +551,11 @@ def main(args):
         raise SystemExit(0)
 
     # Signbank commands.
-    signbank = Signbank(base_url, username, password)
+    signbank = Signbank(
+        base_url, username, password, rcfile(),
+        default_user = get_default('--user'),
+        default_url  = get_default('--base'),
+    )
     out = []
     if args['gloss']:                          # 'gloss' subcommand
         out = cmd_gloss(signbank, gloss_id, fields, values)
