@@ -10,12 +10,7 @@
 # module).
 #
 """View or modify information in a Signbank.
-Usage:
-  signbanker [OPTION]...
-  signbanker [OPTION]... gloss GLOSS_ID [FIELD VALUE]...
-  signbanker [OPTION]... help [COMMAND|GUIDE] [IGNORED]...
-  signbanker [OPTION]... lexicon [LEXICON_ID]
-  signbanker version
+Usage: signbanker [OPTION]... COMMAND [ARG]...
 
 Options:
   -b,--base=URL    signbank address (default: http://localhost:8000)
@@ -57,11 +52,6 @@ def cmd_todo():
       modify. Fix this.
     * Add support for adding / removing multiple-valued field (like 'URL' --
       called 'glossurl-NUM' in the backend)
-    * Rewrite --help info & processing
-      Should say 'Usage: signbanker [options] COMMAND [ARG]...', and then
-      delegate the ARG processing using the docstring of the respective cmd_*
-      functions, using '[options]' as global options (password, url etc.) but
-      allowing for command-specific options as well.
     * Add 'profiles' in config file
       So that one may set up URL, login and password in separate for specific
       scenarios, and use an option (maybe --config=NAME?) to specify which
@@ -72,7 +62,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.4.4'                        # https://semver.org/
+__version__   = '0.5.0'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -364,16 +354,6 @@ def prettify_docopt_error(e):
         msg += f"\nTry '{__file__} help' for more information."
     return (basename(__file__) + ': ' + (msg or str(e)))
 
-def get_command(args):
-    """Return name of command given on command line that is set to True, and which
-    has a corresponding to a 'cmd_{command}' function in the code.
-    """
-    for arg in args:
-        if args[arg] == True:
-            try: eval(f'cmd_{arg}')
-            except NameError: continue
-            return arg
-
 def get_default(optstr):
     """Return '(default: ...)' for the given option."""
     match = re.search(optstr + r'\b.*[\[\(]default: (.*)[\]\)]', cmd_help())
@@ -395,10 +375,160 @@ def rcfile():
             return join(path, file_tmpl % basename(__file__))
     return None
 
+def parse_argv(doc, argv):
+    from docopt import (docopt, DocoptExit)
+
+    def get_commands():
+        """Return a list of commands from main program docstring."""
+        text = re.findall(r'(?is)Commands:(.*?)(?=\n\n)', cmd_help())[0]
+        return re.findall(r'(?m)^\s{2,4}(\w*)', text)
+
+    def parse_leading_argv(doc, argv):
+        """Returns two-value tuple with the dictionary returned by Docopt, and a list
+        containing any remaining command line arguments.
+
+        This runs everything up to, and including, the first non-option (ie,
+        argument that does not start with '-') through Docopt. If Docopt return
+        failure, we find the next occurring non-option and try again, etc,
+        until all possibilities have been exhausted. If all attempts at running
+        Docopt fail, raise an error (with a message suitable for outputting on
+        the command line). Unfortunately, many of the error messages are vague,
+        but I've tried to add as much context and clarity as is possible
+        (Docopt isn't really helpful in this regard, unfortunately).
+
+        Args:
+          doc(str): Docopt style docstring.
+          argv(List[str]): Command line arguments.
+
+        Returns:
+          args(dict): Dictionary of options returned from Docopt.
+          subargv (List[str]): Arguments to COMMAND (excluding COMMAND itself).
+
+        Raises:
+          SignbankError: If parse fails.
+
+        """
+        error = None
+        error_message = "Unknown options%s. See 'signbanker help'."
+
+        # Split argv on possible COMMAND, at try to parse args + command.
+        for (i, arg) in enumerate(argv, 0):
+            if arg[0] != '-':                      # if arg is non-option
+                preargv = argv[0:i+1]              #   leading args + COMMAND
+                subargv = argv[i+1:]               #   args after COMMAND
+                try:                               #   parse opts + COMMAND
+                    return (docopt(doc, preargv, help = False), subargv)
+                except DocoptExit as e:            # ON FAIL: keep error msg
+                    error = error or SignbankError(
+                        error_message % f" before command '{arg}'")
+
+        # No solution found, try full command line.
+        try:
+            return (docopt(doc, argv, help = False), [])
+        except DocoptExit:
+            error = error or SignbankError(error_message % '')
+        raise error
+
+    def parse_override_opts(args, subargv, cmd, options):
+        """Promotes the first occurrence of the specified options to a (sub)command.
+        This is used to post-process the argv, to allow the options like
+        '--help' and '--version' to appear anywhere on the command line
+        (otherwise they could not appear after a (sub)command).
+
+        First, `subargv` is searched and all matching options are removed from
+        there and have their corresponding values set in `args`. E.g. the if
+        the `options` = `(('--help', '-h'), ('--version', '-v'))` then all
+        occurrences of the options '-h', '--help', '-v', and '--version' will
+        be removed from `subargv`, and set the matching `args['--help']` or
+        `args['--version']` value to True.
+
+        Second, `args` is searched in the order specified in `options`, and the
+        first matching option is copied as a command to `args[cmd]` (any
+        previous value of `args[cmd]` is appended to the beginning of
+        `subargv`). If the option '--version' is the first matching, then
+        `args[cmd]` will be set to 'version'.
+
+        Args:
+          args(dict): Dictionary of options as returned from Docopt.
+          subargv (List[str]): Arguments to COMMAND (excluding COMMAND itself)
+          cmd(str): Name in `args` for the COMMAND.
+          options(List[List[[str]]): A list where each element is a list of
+            option names. The first option name must be a long option, with two
+            leading dashes (e.g. '--version') subsequent option names can be in
+            any format. Given the tuple ('--version', '-V') any occurrence of
+            either '--version' or '-V' will set `args[cmd]` to 'version' and
+            also set `args['--version']` to True.
+
+        Returns:
+          args(dict): Dictionary of options returned from Docopt.
+          subargv (List[str]): Arguments to COMMAND (excluding COMMAND itself).
+
+        """
+        # FIXME: Option is moved even if occurs as optarg, or after '--'. :(
+        # FIXME: Avoid looping over 'subargv' multiple times(?)
+        # Move ALL matching opts in subargv to global option.
+        for opts in options:
+            long_opt = opts[0]
+            for (i, arg) in enumerate(subargv):# look in subcommand options
+                if arg in opts:                #   if short or longopt
+                    args[long_opt] = True      #   set global option
+                    del subargv[i]             #   remove from subcommand
+
+        # Copy global option to `arg[cmd]`.
+        for opts in options:
+            long_opt = opts[0]
+            if args.get(long_opt, None):       # if global option set
+                prevcmd = args.get(cmd, None)  #   get current COMMAND
+                if prevcmd != None:            #     prepend it to subcmd argv
+                    subargv.insert(0, prevcmd)
+                args[cmd] = long_opt[2:]       #   set COMMAND to opt w/o '--'
+                break
+        return (args, subargv)
+
+    ############################################################################
+
+    (args, subargv) = parse_leading_argv(doc, argv)
+    # FIXME: 'COMMAND' and option list should be extracted from cmd_help() text
+    (args, subargv) = parse_override_opts(
+        args, subargv, 'COMMAND',
+        (('--version', '-v'), ('--help', '-h'))
+    )
+
+    # No COMMAND specified.
+    if args['COMMAND'] == None: raise SignbankError(
+        f"Please specify a COMMAND. See 'signbanker help'.\n" +
+        re.findall(r'(?is)Usage:.*?(?=\n\n)', cmd_help())[0])
+
+    # Unknown COMMAND.
+    if not args['COMMAND'] in get_commands(): raise SignbankError(
+        f"'{args['COMMAND']}' is not a signbanker command. See 'signbanker help'.")
+
+    # Global options parsing done. Now parse (sub)COMMAND and ITS args.
+    try:
+        subargs = docopt(
+            cmd_help(args['COMMAND'], raw = True),
+            [args['COMMAND']] + subargv,
+            help = False)
+        del subargs[args['COMMAND']]           # remove command name
+        subargs = {                            # downcase key names
+            key.lower(): value for (key, value) in subargs.items()
+        }
+        return (args, subargs)
+    except DocoptExit:
+        if args.get('--' + args['COMMAND'], None):
+            # If invoked via --help or --version.
+            msg = f"Bad arguments for '--{args['COMMAND']}'. "
+        else:
+            msg = f"Bad arguments for command '{args['COMMAND']}'. "
+        raise SignbankError(
+            msg +
+            f"See 'signbanker help {args['COMMAND']}'.\n" +
+            cmd_help(args['COMMAND']).split('\n\n')[0])
+
 ################################################################################
 ##  Command Line Functions
 
-def cmd_gloss(signbank, gloss_id, fields = [], values = []):
+def cmd_gloss(signbank, gloss_id, field = [], value = [], **_):
     """Usage: signbanker gloss GLOSS_ID [FIELD VALUE]...
 
     Without FIELD/VALUE pairs, output all fields for given gloss. Each field is
@@ -413,16 +543,13 @@ def cmd_gloss(signbank, gloss_id, fields = [], values = []):
     unfortunately not yet be modified with this tool.)
 
     """
-    if values:
-        signbank.edit_gloss(gloss_id, fields, values)
+    if value:
+        signbank.edit_gloss(gloss_id, field, value)
     else:
         return signbank.show_gloss(gloss_id)
 
-def cmd_help(command = None, raw = None):
-    """Usage:
-      signbanker help [COMMAND|GUIDE]
-      signbanker (-h|--help) [COMMAND|GUIDE]
-      signbanker [COMMAND|GUIDE] (-h|--help)
+def cmd_help(command = None, guide = None, raw = None, **_):
+    """Usage: signbanker help [COMMAND|GUIDE]
 
     Show help message for this script, or, if a COMMAND is specified, show more
     detailed help information for the given command.
@@ -437,6 +564,7 @@ def cmd_help(command = None, raw = None):
     """
     from inspect import cleandoc
     from getpass import getuser
+    command = command or guide
     if __doc__ == None:
         raise SignbankError(
             f"Required docstrings not found in program file\n" +
@@ -446,9 +574,8 @@ def cmd_help(command = None, raw = None):
             docstr =  eval(f'cmd_{command}.__doc__')
         except NameError:
             raise SignbankError(
-                f"'{command}' is not a signbanker COMMAND or GUIDE.\n" +
-                "Use 'signbanker help' (for commands) or 'signbanker help " +
-                "help' (for guides).")
+                f"'{command}' is not a COMMAND/GUIDE. See 'signbanker help help'.\n" +
+                re.findall(r'(?is)Usage:.*?(?=\n\n)', cmd_help('help'))[0])
     else:
         # Expand docstring --login '(default: %s)' with current username here.
         docstr = __doc__ % getuser()
@@ -459,14 +586,14 @@ def cmd_help(command = None, raw = None):
         return re.sub(
             r'(?i)\(default: .*?\)', '[default: ]', # clear '(default: ...)'
             (docstr
+                .replace('COMMAND [ARG]...','[COMMAND]')
                 .replace('[OPTION]...', '[options]')
             ))
     else:
         # Prettify docstring somewhat for output to human eyes.
-        return cleandoc(docstr
-            .replace(' [IGNORED]...', ''))
+        return cleandoc(docstr)
 
-def cmd_lexicon(signbank, lexicon_id = None):
+def cmd_lexicon(signbank, lexicon_id = None, **_):
     """Usage: signbanker lexicon [LEXICON_ID]
 
     Without LEXICON_ID, output list of lexicons found in the signbank. The
@@ -533,7 +660,7 @@ def cmd_password():
 
     """
 
-def cmd_version():
+def cmd_version(**_):
     """Usage: signbanker version
 
     Display version information and exit.
@@ -544,44 +671,28 @@ def cmd_version():
 ################################################################################
 ##  Main
 
-def main(args):
-    # Docopt command line values.
-    base_url = args['--base']                  # optional (string)
-    gloss_id = args['GLOSS_ID']                # optional (string)
-    fields   = args['FIELD']                   # optional (list)
-    values   = args['VALUE']                   # optional (list)
+def main(args, subargs):
+    base_url = args['--base']                  # --base (optional, string)
     (username, password) = (                   # --login (optional, string)
         # https://stackoverflow.com/a/39923577/351162
         (args.get('--login') or '').split(':', 1) + 2 * [''])[:2]
 
-    # If '--help' option is used, turn this into 'help' command.
-    # (Set command to 'help' and copy signbanker command into 'COMMAND' arg.)
-    if args['--help']:
-        args['COMMAND'] = get_command(args)
-        args['help'] = True
-    if args['--version']:
-        args['COMMAND'] = get_command(args)
-        args['version'] = True
+    command = args.get('COMMAND', '')
+    cmd_func =  eval(f'cmd_{command}')
 
     # Informational commands.
-    if args['help']:
-        print(cmd_help(args['COMMAND']))
-        raise SystemExit(0)
-    if args['version']:
-        print(cmd_version())
+    if command in ('help', 'version'):
+        print(cmd_func(**subargs))
         raise SystemExit(0)
 
     # Signbank commands.
-    signbank = Signbank(
+    subargs['signbank'] = Signbank(
         base_url, username, password, rcfile(),
         default_user = get_default('--login'),
         default_url  = get_default('--base'),
     )
-    out = []
-    if args['gloss']:                          # 'gloss' subcommand
-        out = cmd_gloss(signbank, gloss_id, fields, values)
-    elif args['lexicon']:                      # 'lexicon' subcommand
-        out = cmd_lexicon(signbank, args['LEXICON_ID'])
+    out = cmd_func(**subargs)
+
     for cols in out or []:
         print('\t'.join(cols))
 
@@ -594,15 +705,13 @@ package_name = {
     'mechanicalsoup': { 'deb': 'python3-mechanicalsoup', 'pip': 'MechanicalSoup' },
 }
 if __name__ == '__main__':
-    class DocoptExit(Exception): pass          # used if Docopt isn't installed
     try:
-        from docopt import (docopt, DocoptExit)
         # Parse command line args and pass them to main().
-        main(docopt(cmd_help(raw = True), help = False))
+        main(*parse_argv(cmd_help(raw = True), sys.argv[1:]))
     except KeyboardInterrupt:
         print('\n*** BREAK: Killed by ^C (SIGINT signal)', file = sys.stderr)
         raise SystemExit(130)
-    except (DocoptExit, SignbankError) as e:
+    except SignbankError as e:
         print(prettify_docopt_error(e), file = sys.stderr)
         raise SystemExit(5)
     except ModuleNotFoundError as e:
