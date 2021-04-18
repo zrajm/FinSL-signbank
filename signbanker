@@ -38,6 +38,12 @@ again). For a list of help guides, see 'signbanker help help'.
 def cmd_todo():
     """TODO (Not yet implemented)
     ==========================
+    * Set permissions of config file, so that other users can't read it
+    * Save cookie timestamp as ISO date, not epoch
+    * Fix options parsing
+      (help gloss|--help gloss| gloss --help) should all result in same thing
+      just '--help' or 'help' alone should give usage
+      (This is hard to get right, maybe write some tests?)
     * Output should be prettier (choice between CSV, TSV and formatted tables)
     * Zsh/Bash tab completion for options, commands and command arguments
     * More SSH-like command line, where one host or section argument is
@@ -64,7 +70,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.4.1'                        # https://semver.org/
+__version__   = '0.4.2'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
