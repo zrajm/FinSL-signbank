@@ -11,16 +11,16 @@
 #
 """View or modify information in a Signbank.
 Usage:
-  signbanker [options]
-  signbanker [options] gloss GLOSS_ID [FIELD VALUE]...
-  signbanker [options] help [COMMAND|GUIDE] [IGNORED]...
-  signbanker [options] lexicon [LEXICON_ID]
+  signbanker [OPTION]...
+  signbanker [OPTION]... gloss GLOSS_ID [FIELD VALUE]...
+  signbanker [OPTION]... help [COMMAND|GUIDE] [IGNORED]...
+  signbanker [OPTION]... lexicon [LEXICON_ID]
   signbanker version
 
 Options:
-  -b,--base=URL    signbank address [default: http://localhost:8000]
+  -b,--base=URL    signbank address (default: http://localhost:8000)
   -h,--help        show this help, or help about COMMAND/GUIDE, then exit
-  -l,--login=USER  username/password for signbank login [default: %s]
+  -l,--login=USER  username/password for signbank login (default: %s)
                    (see also 'signbanker help password')
   -v,--version     display version information and exit
 
@@ -72,7 +72,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.4.3'                        # https://semver.org/
+__version__   = '0.4.4'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -375,10 +375,9 @@ def get_command(args):
             return arg
 
 def get_default(optstr):
-    """Return Docopt '[default:...]' from the help text of given option."""
-    from re import search
-    value = search(optstr + r'\b.*\[default: (.*)\]', cmd_help())
-    return value[1] if value else None
+    """Return '(default: ...)' for the given option."""
+    match = re.search(optstr + r'\b.*[\[\(]default: (.*)[\]\)]', cmd_help())
+    return match[1] if match else None
 
 def rcfile():
     """Return name of config file. This hopefully returns a sane filename on
@@ -400,7 +399,7 @@ def rcfile():
 ##  Command Line Functions
 
 def cmd_gloss(signbank, gloss_id, fields = [], values = []):
-    """signbanker [options] gloss GLOSS_ID [FIELD VALUE]...
+    """Usage: signbanker gloss GLOSS_ID [FIELD VALUE]...
 
     Without FIELD/VALUE pairs, output all fields for given gloss. Each field is
     output on a separate line, with field name first followed whitespace, and
@@ -420,9 +419,10 @@ def cmd_gloss(signbank, gloss_id, fields = [], values = []):
         return signbank.show_gloss(gloss_id)
 
 def cmd_help(command = None, raw = None):
-    """signbanker [options] help [COMMAND|GUIDE]
-    signbanker [options] (-h|--help) [COMMAND|GUIDE]
-    signbanker [options] [COMMAND|GUIDE] (-h|--help)
+    """Usage:
+      signbanker help [COMMAND|GUIDE]
+      signbanker (-h|--help) [COMMAND|GUIDE]
+      signbanker [COMMAND|GUIDE] (-h|--help)
 
     Show help message for this script, or, if a COMMAND is specified, show more
     detailed help information for the given command.
@@ -450,21 +450,24 @@ def cmd_help(command = None, raw = None):
                 "Use 'signbanker help' (for commands) or 'signbanker help " +
                 "help' (for guides).")
     else:
-        # Expand docstring --login '[default: %s]' with current username here.
+        # Expand docstring --login '(default: %s)' with current username here.
         docstr = __doc__ % getuser()
     if raw:
-        # For passing to Docopt. (Replace all '[default: ...]' with empty
+        # For passing to Docopt. (Replace all '(default: ...)' with empty
         # values here. (This is to make inline defaults overrideable by config
         # file values, and those in turn overrideable by command line args.)
-        return re.sub(r'(?<=\[default: )(.*)(?=\])', '', docstr, flags=re.I)
+        return re.sub(
+            r'(?i)\(default: .*?\)', '[default: ]', # clear '(default: ...)'
+            (docstr
+                .replace('[OPTION]...', '[options]')
+            ))
     else:
         # Prettify docstring somewhat for output to human eyes.
         return cleandoc(docstr
-            .replace(' [IGNORED]...', '')
-            .replace('[options]', '[OPTION]...'))
+            .replace(' [IGNORED]...', ''))
 
 def cmd_lexicon(signbank, lexicon_id = None):
-    """signbanker [options] lexicon [LEXICON_ID]
+    """Usage: signbanker lexicon [LEXICON_ID]
 
     Without LEXICON_ID, output list of lexicons found in the signbank. The
     following columns are output:
@@ -531,7 +534,7 @@ def cmd_password():
     """
 
 def cmd_version():
-    """signbanker version
+    """Usage: signbanker version
 
     Display version information and exit.
 
@@ -547,10 +550,10 @@ def main(args):
     gloss_id = args['GLOSS_ID']                # optional (string)
     fields   = args['FIELD']                   # optional (list)
     values   = args['VALUE']                   # optional (list)
-    (username, password) = map(
-        lambda x: x or None,
-        [*(args['--login'] or '').split(':', 1), ''][:2],
-    )
+    (username, password) = (                   # --login (optional, string)
+        # https://stackoverflow.com/a/39923577/351162
+        (args.get('--login') or '').split(':', 1) + 2 * [''])[:2]
+
     # If '--help' option is used, turn this into 'help' command.
     # (Set command to 'help' and copy signbanker command into 'COMMAND' arg.)
     if args['--help']:
@@ -571,7 +574,7 @@ def main(args):
     # Signbank commands.
     signbank = Signbank(
         base_url, username, password, rcfile(),
-        default_user = get_default('--user'),
+        default_user = get_default('--login'),
         default_url  = get_default('--base'),
     )
     out = []
@@ -593,15 +596,14 @@ package_name = {
 if __name__ == '__main__':
     class DocoptExit(Exception): pass          # used if Docopt isn't installed
     try:
-        from sys import stderr
         from docopt import (docopt, DocoptExit)
-        # Parse command line args with docopt and pass them to main().
+        # Parse command line args and pass them to main().
         main(docopt(cmd_help(raw = True), help = False))
     except KeyboardInterrupt:
-        print('\n*** BREAK: Killed by ^C (SIGINT signal)', file = stderr)
+        print('\n*** BREAK: Killed by ^C (SIGINT signal)', file = sys.stderr)
         raise SystemExit(130)
     except (DocoptExit, SignbankError) as e:
-        print(prettify_docopt_error(e), file = stderr)
+        print(prettify_docopt_error(e), file = sys.stderr)
         raise SystemExit(5)
     except ModuleNotFoundError as e:
         print(f"ERROR: Cannot load the required Python module '{e.name}'.\n" + (
@@ -610,7 +612,7 @@ if __name__ == '__main__':
             f"    pip install {package_name[e.name]['pip']}               # (Python installer)\n"
             if e.name in package_name.keys() else
             f"    (Are you sure that that module is installed on your system?)"
-        ), file = stderr)
+        ), file = sys.stderr)
         raise SystemExit(10)
 
 #[eof]
