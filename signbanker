@@ -64,7 +64,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.4.0'                        # https://semver.org/
+__version__   = '0.4.1'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -496,30 +496,29 @@ def cmd_password():
     So if you use the PASSWORD part of the --login=USER[:PASSWORD] option,
     consider the following:
 
-      1. To minimize the risk of someone else being able to see your password
-         while the program is running, only specify a password as an argument
-         on your private computer (a computer where no one else can log in). If
-         another user have access to the same computer, they don't necessarily
-         have to be logged in when the command runs (they could leave a
-         long-running script).
+    1. To minimize the risk of someone else being able to see your password
+       while the program is running, only specify a password as an argument on
+       your private computer (a computer where no one else can log in). If
+       another user have access to the same computer, they don't necessarily
+       have to be logged in when the command runs (they could leave a
+       long-running script).
 
-      2. To lessen bad consequences if someone were to get hold of your
-         password, make sure you don't use the same password for your signbank
-         as you do for other services. (It would be kinda embarrassing if
-         someone were to get hold of your password, and then could use that to
-         read your email, access your bank account, and login to your social
-         media, wouldn't it?)
+    2. To lessen bad consequences if someone were to get hold of your password,
+       make sure you don't use the same password for your signbank as you do
+       for other services. (It would be kinda embarrassing if someone were to
+       get hold of your password, and then could use that to read your email,
+       access your bank account, and login to your social media, wouldn't it?)
 
-      3. Commands executed in a terminal are usually saved in the shell history
-         (on Linux, this is usually found in ~/.bash_history). The permissions
-         on are such that users on the computer cannot read the history file,
-         but since file remain on the computer, it can be accessed months or
-         even years after it was written, and so it might be worth removing the
-         offending commands (or maybe even deleting the history file) to erase
-         your password. (Some shells allow you to suppress history saving of a
-         command by preceding it with a space, and on Linux you can use the
-         command 'unset HISTFILE' to disable history saving for subsequent
-         commands.)
+    3. Commands executed in a terminal are usually saved in the shell history
+       (on Linux, this is usually found in ~/.bash_history). The permissions on
+       are such that users on the computer cannot read the history file, but
+       since file remain on the computer, it can be accessed months or even
+       years after it was written, and so it might be worth removing the
+       offending commands (or maybe even deleting the history file) to erase
+       your password. (Some shells allow you to suppress history saving of a
+       command by preceding it with a space, and on Linux you can use the
+       command 'unset HISTFILE' to disable history saving until you exit the
+       current shell.)
 
     """
 
