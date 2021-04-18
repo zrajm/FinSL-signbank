@@ -15,6 +15,7 @@ Usage:
   signbanker [options] gloss GLOSS_ID [FIELD VALUE]...
   signbanker [options] help [COMMAND|GUIDE] [IGNORED]...
   signbanker [options] lexicon [LEXICON_ID]
+  signbanker version
 
 Options:
   -b,--base=URL    signbank address [default: http://localhost:8000]
@@ -27,6 +28,7 @@ Commands:
   gloss    show or edit the data of individual gloss
   help     show this help, or help about COMMAND, then exit
   lexicon  list available lexicons, or glosses in a given lexicon
+  version  display version information and exit
 
 To access a signbank, a URL and login/password is needed. Signbanker tries to
 make life as easy as possible for you, by providing reasonable defaults, and
@@ -70,7 +72,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.4.2'                        # https://semver.org/
+__version__   = '0.4.3'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -528,6 +530,14 @@ def cmd_password():
 
     """
 
+def cmd_version():
+    """signbanker version
+
+    Display version information and exit.
+
+    """
+    return f'{__title__} {__version__}\n{__copyright__}\n{__info__}'
+
 ################################################################################
 ##  Main
 
@@ -546,13 +556,16 @@ def main(args):
     if args['--help']:
         args['COMMAND'] = get_command(args)
         args['help'] = True
+    if args['--version']:
+        args['COMMAND'] = get_command(args)
+        args['version'] = True
 
     # Informational commands.
     if args['help']:
         print(cmd_help(args['COMMAND']))
         raise SystemExit(0)
-    if args['--version']:
-        print(f'{__title__} {__version__}\n{__copyright__}\n{__info__}')
+    if args['version']:
+        print(cmd_version())
         raise SystemExit(0)
 
     # Signbank commands.
