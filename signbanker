@@ -35,7 +35,6 @@ again). For a list of help guides, see 'signbanker help help'.
 def cmd_todo():
     """TODO (Not yet implemented)
     ==========================
-    * Set permissions of config file, so that other users can't read it
     * Save cookie timestamp as ISO date, not epoch
     * Fix options parsing
       (help gloss|--help gloss| gloss --help) should all result in same thing
@@ -62,7 +61,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.5.0'                        # https://semver.org/
+__version__   = '0.5.1'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -74,6 +73,7 @@ the same license, and give credit to the original author.
 Written by zrajm for the Swedish Signbank <https://signbank.ling.su.se/>,
 Sign Language Section, Department of Linguistics, Stockholm university."""
 
+import os
 import re
 import sys
 
@@ -144,8 +144,10 @@ class Signbank:
                 self.config.set(section, name, value)
                 updated = True
         if updated:
+            old_umask = os.umask(0o177)        # use '0600' file permissions
             with open(self.config_file, 'w') as fh:
                 self.config.write(fh)
+            os.umask(old_umask)
 
     def get_cookie(self, name):
         """Return the named cookie (it's a Cookie object)."""
