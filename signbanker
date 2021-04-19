@@ -61,7 +61,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.6.1'                        # https://semver.org/
+__version__   = '0.6.2'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -133,10 +133,6 @@ class Signbank:
         self.password = password
         if not self.config.has_section(self.config_part):
             self.config.add_section(self.config_part)
-            self.set_opt({
-                'signbank': self.base_url,
-                'username': self.username,
-            })
         if not re.search(r'^\w+://', self.base_url): # set URL protocol
             self.base_url = f'https://{url}'
         if self.session_cookie:                # set browser session cookie
@@ -154,6 +150,8 @@ class Signbank:
     def set_opt(self, options, section = None):
         section = section or self.config_part
         updated = False
+        if not self.config.has_section(section):
+            self.config.add_section(section)
         for (name, value) in options.items():
             if self.get_opt(name, section) != value:
                 self.config.set(section, name, value)
@@ -211,6 +209,8 @@ class Signbank:
         cookie = self.get_cookie('sessionid')
         if cookie:
             self.set_opt({
+                'signbank': self.base_url,
+                'username': self.username,
                 'session_cookie': cookie.value,
                 'session_domain': cookie.domain,
                 'session_expiry': self.isodate(cookie.expires),
