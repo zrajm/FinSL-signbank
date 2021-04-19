@@ -61,7 +61,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '0.6.0'                        # https://semver.org/
+__version__   = '0.6.1'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -429,7 +429,7 @@ def parse_argv(doc, argv):
 
         # Split argv on possible COMMAND, at try to parse args + command.
         for (i, arg) in enumerate(argv, 0):
-            if arg[0] != '-':                      # if arg is non-option
+            if not arg.startswith('-'):            # if arg is non-option
                 preargv = argv[0:i+1]              #   leading args + COMMAND
                 subargv = argv[i+1:]               #   args after COMMAND
                 try:                               #   parse opts + COMMAND
