@@ -57,7 +57,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '1.0.0'                        # https://semver.org/
+__version__   = '1.1.0'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -416,7 +416,7 @@ def rcfile():
     from os import getenv
     from os.path import (basename, join)
     rcfiles = (
-        ('%s', 'APPDATA'),           # on Windows
+        ('%s.cfg', 'APPDATA'),       # on Windows
         ('%src', 'XDG_CONFIG_HOME'), # XDG desktop standard
         ('.%src', 'HOME'))           # old Unix 'standard'
     for (file_tmpl, dir_env) in rcfiles:
