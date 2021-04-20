@@ -33,11 +33,13 @@ not supported by native CSV import function).
 
   * Run 'signbanker help COMMAND' -- info on any above COMMAND.
   * Run 'signbanker help help' -- list of help guides.
+  * Run 'signbanker help config' -- ways to simplify usage.
   * Run 'signbanker help password' -- how to provide password for scripts.
  """
 def cmd_todo():
     """TODO (Not yet implemented)
     ==========================
+    * Option for naming a different config file to read.
     * Fix options parsing
       (help gloss|--help gloss| gloss --help) should all result in same thing
       just '--help' or 'help' alone should give usage
@@ -57,7 +59,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '1.1.0'                        # https://semver.org/
+__version__   = '1.1.1'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -578,6 +580,43 @@ def parse_argv(doc, argv):
 ################################################################################
 ##  Command Line Functions
 
+def cmd_config():
+    """Singbanker stores its settings in a config file, the name of that file is
+    depend on your system, but is the first found of:
+
+      * %USERPROFILE%\signbank.cfg (Windows)
+      * $XDG_CONFIG_HOME/signbankrc (most modern Linux distros)
+      * $HOME/.signbankrc (older Linux distros and MacOS)
+
+    When you successfully connect to a signbank for the first time, an entry is
+    created, and the relevant URL and login data is saved (passwords are never
+    saved). For example:
+
+      [signbank.ling.su.se]
+      signbank = signbank.ling.su.se
+      session_cookie = vuwbcfb8pukkk12znqbrski1m4kjywzz
+      session_domain = signbank.ling.su.se
+      session_expiry = 2021-05-04T06:19:37+02:00
+
+    The section heading '[signbank.ling.su.se]' is the SIGNBANK argument, as
+    first given on the command line. You may edit the file, and change the
+    section name to something else, after which you can refer to it using that
+    name. (I.e. if you were to change the above section name to '[su]', you
+    could thereafter use 'su' to refer to the signbank, e.g. 'signbanker
+    lexicon su'.)
+
+    The 'signbank' value have the same syntax as the SIGNBANK argument. (See
+    'signbanker help password').
+
+      [devel]
+      signbank = http://ada@localhost:8000
+      ...
+
+    If no URL schema is given, it defaults to 'https://', if no username is
+    given it defaults to the username of the user that runs this program.
+
+    """
+
 def cmd_gloss(signbank, gloss_id, field = [], value = []):
     """Show or modify the data of an individual gloss.
     Usage: signbanker gloss SIGNBANK GLOSS_ID [FIELD VALUE]...
@@ -617,6 +656,7 @@ def cmd_help(command = None, guide = None, raw = None, **_):
     arguments.
 
     Guides:
+      config    how to edit the config and to simplify usage
       password  how to provide a password for automated scripting
       todo      list of ideas and planned features for this program
 
@@ -709,8 +749,12 @@ def cmd_password():
        that file to remove offending commands with password, or use 'unset
        HISTORY' to disable history (until you exit the shell).
 
-    If you non-the-less MUST use a password on the command line, add it to the
-    SIGNBANK argument after the username (e.g. https://ada:pass@signbank.com).
+    If you REALLY need to a password on the command line, you can add it to the
+    SIGNBANK argument after the username (e.g. https://ada:pass@signbank.com),
+    or better yet add it to the 'signbank' value in the config file (see
+    'signbanker help config') and load it from there. (Passwords loaded this
+    way does not show up in the process table, meaning that for another user to
+    get hold of it, they need to first obtain read access to your config file.)
 
     """
 
