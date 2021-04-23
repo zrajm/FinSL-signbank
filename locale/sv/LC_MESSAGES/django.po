@@ -927,7 +927,9 @@ msgid ""
 "                               Usage of numbers that end with a dot (.) is "
 "allowed (e.g. 11.) and they will not be part\n"
 "                               of translations."
-msgstr ""
+msgstr "Separera olika översättningar med komma (,) eller semikolon (;). Du "
+"kan också att skriva siffror och med punkt (.) efter (t.ex. ’11.’) sådana "
+"siffror kommer inte inkluderas i översättningen."
 
 #: signbank/dictionary/templates/dictionary/gloss_detail.html:338
 msgid "Notes:"
