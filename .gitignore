@@ -22,4 +22,7 @@ debug.log
 /codecov.sh
 /signbank/settings/settings_secret.py
 
+# Compiled locale files. (.po files need to be in repo, but not .mo files.)
+/locale/*/LC_MESSAGES/*.mo
+
 #[eof]
