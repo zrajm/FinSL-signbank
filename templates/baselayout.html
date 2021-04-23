@@ -77,9 +77,8 @@
                 <div class="headerlogo">
                     <h1>
                         <a href="{% url 'root_page' %}" title="{% trans "Swedish Signbank" %}">
-                            <img id="logoheadersignbank" src="{% static 'img/signbank-logo.png' %}" alt="{% trans "Swedish Signbank" %}">
-                        </a>
-                        <span>{% trans "Swedish Signbank" %}</span>
+                            <img id="logoheadersignbank" style="margin-left:.25em" src="{% static 'img/signbank-logo.svg' %}" alt="{% trans "Swedish Signbank" %}"></a>
+                        <span style="margin-left:0">{% trans "Swedish Signbank" %}</span>
                     </h1>
                 </div>
                 <div id="langbar">{% include "langbar.html" %}</div>

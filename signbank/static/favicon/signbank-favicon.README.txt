@@ -1,0 +1,17 @@
+* `signbank-favicon.inkscape.svg` is the original image, designed using
+  Inkscape.
+
+* The `*.png` files is this directory where first (manually) exported (as PNGs)
+  from Inkscape, then optimized using `optipng *.png` and stripped of
+  unnecessary EXIF data with `exiftool -all= *.png`.
+
+* The `favicon.ico` file was generated (from the `android-icon-192x192.png`
+  file) using ImageMagick by running the command:
+
+    convert android-icon-192x192.png -define icon:auto-resize=64,48,32,16 favicon.ico
+
+(See also `signbank/static/img/signbank-logo.svg` in this git repo.)
+
+/zrajm, 23 April 2021
+
+[eof]

@@ -1,0 +1,10 @@
+* `signbank-logo.inkscape.svg` is the original image, designed using Inkscape.
+
+* `signbank-logo.svg` is the minified version, was saved in Inkscape as 'Plain
+  SVG', then minified with using https://jakearchibald.github.io/svgomg/.
+
+(See also `signbank/static/favicon/signbank-favicon.svg` in this git repo.)
+
+/zrajm, 23 April 2021
+
+[eof]
