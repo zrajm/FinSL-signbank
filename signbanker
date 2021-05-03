@@ -18,13 +18,13 @@ Usage:
   signbanker version
 
 Options:
-  -h,--help        show this help, help about COMMAND, or GUIDE
+  -h,--help        show this help, or help about COMMAND or GUIDE
   -v,--version     show version information
 
 Commands:
   gloss    show or modify the data of an individual gloss
-  help     show this help, help about COMMAND, or GUIDE
-  lexicon  list lexicons, or glosses in specific lexicon
+  help     show this help, or help about COMMAND or GUIDE
+  lexicon  list lexicons, or glosses in specified lexicon
   version  show version information
 
 Logins are remembered (usually 14 days, but it depends on the signbank). This
@@ -53,7 +53,7 @@ def cmd_todo():
       modify. Fix this.
     * Add support for adding / removing multiple-valued field (like 'URL' --
       called 'glossurl-NUM' in the backend)
-    * Disable providing password on the commandline (as it can be read in the
+    * Disable providing password on the command line (as it can be read in the
       process table) -- this requires some adequate other way of providing the
       password. Maybe using a shell environment variable?
     * Remove prettify_docopt_error()? -- Or could it be used to make Docopt
@@ -62,7 +62,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '1.2.1'                        # https://semver.org/
+__version__   = '1.2.2'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -97,7 +97,7 @@ class Signbank:
     login_form = 'login'
 
     def url(self, name, *args):
-        """Return page url, based on URL template and args."""
+        """Return page url, based on URL template and arguments."""
         urls = {
             'get_gloss'      : '%s/dictionary/advanced/gloss/%s',
             'set_gloss_value': '%s/dictionary/update/gloss/%s',
@@ -308,7 +308,7 @@ class Signbank:
                 f'Cannot load signbank page.\n'
                 f'Error: {type(e).__name__}: {e}')
 
-        # If login cookie isn't set, login and reload the page. (Pageload will
+        # If login cookie isn't set, login and reload the page. (Page load will
         # have failed, but instead we will have gotten the needed login page.)
         if not self.get_cookie('sessionid'):
             self.login()
@@ -324,7 +324,7 @@ class Signbank:
             f'Server response: {response.status_code} - {response.reason}')
 
     def get_csrf_token(self):
-        """Returns first occurence the CSRF token (string) on a signbank page.
+        """Returns first occurrence the CSRF token (string) on a signbank page.
 
         A CSRF (Cross-Site Request Forgery) token occurs on all pages that have
         (at least one) form which require user privileges. If there are
@@ -636,10 +636,10 @@ def cmd_gloss(signbank, gloss_id, field = [], value = []):
     """Show or modify the data of an individual gloss.
     Usage: signbanker gloss SIGNBANK GLOSS_ID [FIELD VALUE]...
 
-    SIGNBANK is URL, or config name (see 'signbanker help config'), identifying
-    the signbank to communicate with. Signbank username can be specified in the
-    URL (e.g. https://alice@signbank.com/). If not given, will try the name of
-    the currently logged in user. (See also 'signbanker help password'.)
+    SIGNBANK is URL or config name (see 'signbanker help config') identifying
+    the signbank to communicate with. A signbank username can be specified in
+    the URL (e.g. https://alice@signbank.com/). If not given, will try the name
+    of the currently logged in user. (See also 'signbanker help password'.)
 
     Without FIELD/VALUE pairs, output all fields for given gloss. Each field is
     output on a separate line, with field name first followed whitespace, and
@@ -706,10 +706,10 @@ def cmd_lexicon(signbank, lexicon_id = None):
     """List lexicons, or glosses in a specific lexicon.
     Usage: signbanker lexicon SIGNBANK [LEXICON_ID]
 
-    SIGNBANK is URL, or config name (see 'signbanker help config'), identifying
-    the signbank to communicate with. Signbank username can be specified in the
-    URL (e.g. https://alice@signbank.com/). If not given, will try the name of
-    the currently logged in user. (See also 'signbanker help password'.)
+    SIGNBANK is URL or config name (see 'signbanker help config') identifying
+    the signbank to communicate with. A signbank username can be specified in
+    the URL (e.g. https://alice@signbank.com/). If not given, will try the name
+    of the currently logged in user. (See also 'signbanker help password'.)
 
     Without LEXICON_ID, output list of lexicons found in the signbank. The
     following columns are output:
