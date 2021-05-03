@@ -46,8 +46,6 @@ def cmd_todo():
     * Add docstrings for all functions
     * When showing gloss, more fields are displayed than one can (presumably)
       modify. Fix this.
-    * Add support for adding / removing multiple-valued field (like 'URL' --
-      called 'glossurl-NUM' in the backend)
     * Disable providing password on the command line (as it can be read in the
       process table) -- this requires some adequate other way of providing the
       password. Maybe using a shell environment variable?
@@ -57,7 +55,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '3.0.0'                        # https://semver.org/
+__version__   = '3.1.0'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -94,10 +92,11 @@ class Signbank:
     def url(self, name, *args):
         """Return page url, based on URL template and arguments."""
         urls = {
-            'get_gloss'      : '%s/dictionary/advanced/gloss/%s',
+            'get_gloss': '%s/dictionary/advanced/gloss/%s',
             'set_gloss_value': '%s/dictionary/update/gloss/%s',
-            'list_glosses'   : '%s/dictionary/advanced/?paginate_by=9999999&dataset=%s',
-            'list_lexicons'  : '%s/dictionary/advanced/',
+            'remove_gloss_value': '%s/dictionary/advanced/delete/%s/%s',
+            'list_glosses': '%s/dictionary/advanced/?paginate_by=9999999&dataset=%s',
+            'list_lexicons': '%s/dictionary/advanced/',
         }
         return urls[name] % (self.base_url, *args)
 
@@ -421,6 +420,40 @@ class Signbank:
                 },
             )
 
+    def add_gloss_value(self, gloss_id, keyvalues):
+        if not gloss_id.isdigit():
+            raise SignbankError(f"GLOSS_ID must be numeric (not '{gloss_id}')")
+        view_url = self.url('get_gloss', gloss_id)
+        response = self.open(view_url)
+        token = self.get_csrf_token()
+        print('Adding:')
+        add_url = self.url('set_gloss_value', gloss_id)
+        for (field, value) in keyvalues:
+            print(f"  {field}: '{value}'")
+            self.post(
+                add_url,
+                data = {
+                    'csrfmiddlewaretoken': token,
+                    'id': '%s-create' % field,
+                    'value': value,
+                },
+            )
+
+    def remove_gloss_value(self, gloss_id, field_ids):
+        view_url = self.url('get_gloss', gloss_id)
+        response = self.open(view_url)
+        token    = self.get_csrf_token()
+        print('Removing:')
+        for field_id in field_ids:
+            # Split FIELD_ID into name, and number.
+            (field_name, field_num) = field_id.rsplit('-', 1)
+            print(f"  {field_name}/{field_num}")
+            remove_url = self.url('remove_gloss_value', field_name, field_num)
+            self.post(
+                remove_url,
+                data = { 'csrfmiddlewaretoken': token },
+            )
+
 def prettify_docopt_error(e):
     from os.path import basename
     msg = None
@@ -655,10 +688,14 @@ def cmd_gloss(signbank, gloss_id, **args):
     Usage:
       signbanker gloss get SIGNBANK GLOSS_ID
       signbanker gloss set SIGNBANK GLOSS_ID (FIELD=VALUE)...
+      signbanker gloss add SIGNBANK GLOSS_ID (FIELD=VALUE)...
+      signbanker gloss rm SIGNBANK GLOSS_ID FIELD_ID...
 
     Commands:
       get  list all values for a gloss
       set  set one or more values in a gloss
+      add  add value to a multi-value field
+      rm   remove value from a multi-value field
 
     SIGNBANK is URL or config name (see 'signbanker help config') identifying
     the signbank to communicate with. A signbank username can be specified in
@@ -672,10 +709,14 @@ def cmd_gloss(signbank, gloss_id, **args):
 
     'gloss set' sets one or more fields in a gloss to the specified values.
 
-    NOTE: Currently the updating of values is pretty naïve, simple
-    single-valued fields work fine, but some fields (like 'URL') have multiple
-    values which can be added and deleted separately -- these can unfortunately
-    not yet be modified with this tool.)
+    'gloss add' adds a value to multi-valued fields (e.g. 'glossurl') it
+    expects a FIELD name, rather that a full field ID (e.g. 'glossurl', without
+    the trailing number).
+
+    'gloss rm' removes a value from a multi-valued field. Note that the
+    FIELD_ID is different that the FIELD name given to 'gloss add', as it also
+    includes a uniquely identifying number (e.g. 'glossurl-45'). (The full
+    FIELD_ID is listed by the 'gloss get' command.)
 
     FIELD=VALUE pairs must be separated with '='.
 
@@ -687,6 +728,12 @@ def cmd_gloss(signbank, gloss_id, **args):
         return signbank.get_gloss(gloss_id)
     elif args['set']:
         signbank.set_gloss_value(gloss_id, fieldvalues)
+        return
+    elif args['add']:
+        signbank.add_gloss_value(gloss_id, fieldvalues)
+        return
+    elif args['rm']:
+        signbank.remove_gloss_value(gloss_id, args['field_id'])
         return
     raise SignbankError(
         # This error can't happen since Docopt wouldn't let that command pass.
