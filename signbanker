@@ -12,7 +12,7 @@
 """A tool for viewing and modifying the contents of a signbank.
 Usage:
   signbanker [OPTION]... COMMAND [ARG]...
-  signbanker gloss SIGNBANK GLOSS_ID [FIELD VALUE]...
+  signbanker gloss SIGNBANK GLOSS_ID [FIELD=VALUE]...
   signbanker help [COMMAND|GUIDE]
   signbanker lexicon SIGNBANK [LEXICON_ID]
   signbanker version
@@ -62,7 +62,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '1.2.2'                        # https://semver.org/
+__version__   = '2.0.0'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -394,15 +394,24 @@ class Signbank:
             response.soup.select('div#definition .edit'),
         )
 
-    def set_gloss_value(self, gloss_id, fields, values):
+    def set_gloss_value(self, gloss_id, keyvalues):
         if not gloss_id.isdigit():
             raise SignbankError(f"GLOSS_ID must be numeric (not '{gloss_id}')")
         view_url = self.url('get_gloss', gloss_id)
         response = self.open(view_url)
         token    = self.get_csrf_token()
+
+        # If user provides a glossvideo for a different gloss, then signbank
+        # will happily modify it (even though it belongs to a different gloss).
+        # This extra error check is here to prevent that.
+        for (field, _) in keyvalues:
+            if response.soup.select_one('#%s' % field) == None:
+                raise SignbankError(
+                    f"Field '{field}' does not exist in gloss '{gloss_id}'")
+
         print('Setting:')
         modify_url = self.url('set_gloss_value', gloss_id)
-        for (field, value) in zip(fields, values):
+        for (field, value) in keyvalues:
             print(f"  {field}: '{value}'")
             self.browser.post(
                 modify_url,
@@ -425,6 +434,16 @@ def prettify_docopt_error(e):
         # For docopt errors, append helpful tip.
         msg += f"\nTry '{__file__} help' for more information."
     return (basename(__file__) + ': ' + (msg or str(e)))
+
+def keyvalue_split(keyvalue):
+    """Split FIELD=VALUE pair or throw error."""
+    try:
+        (key, value) = keyvalue.split('=', 1)
+    except ValueError:
+        raise SignbankError(
+            f"'{keyvalue}' is not a FIELD=VALUE pair. " +
+            f"See 'signbanker help gloss'.")
+    return (key, value)
 
 def rcfile():
     """Return name of config file. This hopefully returns a sane filename on
@@ -632,30 +651,34 @@ def cmd_config():
 
     """
 
-def cmd_gloss(signbank, gloss_id, field = [], value = []):
+def cmd_gloss(signbank, gloss_id, **args):
     """Show or modify the data of an individual gloss.
-    Usage: signbanker gloss SIGNBANK GLOSS_ID [FIELD VALUE]...
+    Usage: signbanker gloss SIGNBANK GLOSS_ID [FIELD=VALUE]...
 
     SIGNBANK is URL or config name (see 'signbanker help config') identifying
     the signbank to communicate with. A signbank username can be specified in
     the URL (e.g. https://alice@signbank.com/). If not given, will try the name
     of the currently logged in user. (See also 'signbanker help password'.)
 
-    Without FIELD/VALUE pairs, output all fields for given gloss. Each field is
+    Without FIELD=VALUE pairs, output all fields for given gloss. Each field is
     output on a separate line, with field name first followed whitespace, and
     thereafter field value. (Field names never contain spaces.) If a field
     value is unset, this is shown as '-'.
 
-    With one or more FIELD/VALUE pairs given, these values will be updated in
+    With one or more FIELD=VALUE pairs given, these values will be updated in
     the signbank. NOTE: Currently the updating of values is pretty naïve,
     simple single-valued fields work fine, but some fields (like 'URL') have
     multiple values which can be added and deleted separately -- these can
     unfortunately not yet be modified with this tool.)
 
+    FIELD=VALUE pairs must be separated with '='.
+
     """
+    fieldvalues = tuple(map(keyvalue_split, args['field=value']))
+    del(args['field=value'])
     signbank = Signbank(signbank, rcfile())
-    if value:
-        signbank.set_gloss_value(gloss_id, field, value)
+    if fieldvalues:
+        signbank.set_gloss_value(gloss_id, fieldvalues)
     else:
         return signbank.get_gloss(gloss_id)
 
