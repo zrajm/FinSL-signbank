@@ -62,7 +62,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '1.2.0'                        # https://semver.org/
+__version__   = '1.2.1'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -94,13 +94,17 @@ class Signbank:
     config = ConfigParser()
     config_file = None
     config_part = None
-    urls = {
-        'show_gloss'   : 'dictionary/advanced/gloss/',
-        'edit_gloss'   : 'dictionary/update/gloss/',
-        'list_glosses' : 'dictionary/advanced/?paginate_by=9999999&dataset=',
-        'list_lexicons': 'dictionary/advanced/',
-    }
     login_form = 'login'
+
+    def url(self, name, *args):
+        """Return page url, based on URL template and args."""
+        urls = {
+            'get_gloss'      : '%s/dictionary/advanced/gloss/%s',
+            'set_gloss_value': '%s/dictionary/update/gloss/%s',
+            'list_glosses'   : '%s/dictionary/advanced/?paginate_by=9999999&dataset=%s',
+            'list_lexicons'  : '%s/dictionary/advanced/',
+        }
+        return urls[name] % (self.base_url, *args)
 
     def split_url(self, url):
         """Split URL into scheme, user, password, tail. Empty strings are
@@ -227,9 +231,6 @@ class Signbank:
                 f"Cannot find form element '{name}' on signbank page\n" +
                 f"(This is likely a bug or the signbank served the wrong page.)")
 
-    def page(self, name, xtra=''):
-        return f'{self.base_url}/{self.urls[name]}{xtra}'
-
     def login(self):
         """Given that a page containing a login form is already loaded into the
         StatefulBrowser, this function will fill in and submit the login
@@ -349,7 +350,7 @@ class Signbank:
         ).get('value')
 
     def list_lexicons(self):
-        lexicon_url = self.page('list_lexicons')
+        lexicon_url = self.url('list_lexicons')
         response = self.open(lexicon_url)
         column_name = response.soup.select_one('label[for="id_dataset"]').text
         return [
@@ -365,7 +366,7 @@ class Signbank:
             raise SignbankError(f"LEXICON_ID must be integer (not '{lexicon_id}')")
         def space_cleanup(x):
             return re.sub(r'\s+', ' ', (' '.join(x.stripped_strings)))
-        list_url = self.page('list_glosses', lexicon_id)
+        list_url = self.url('list_glosses', lexicon_id)
         response = self.open(list_url)   # FIXME: should be get request(?)
         main_table = response.soup.select_one('main table')
         if not main_table:
@@ -382,25 +383,25 @@ class Signbank:
                 main_table.select('tbody tr')),
         ]
 
-    def show_gloss(self, gloss_id):
+    def get_gloss(self, gloss_id):
         """Display info of a gloss_id."""
         if not gloss_id.isdigit():
             raise SignbankError(f"GLOSS_ID must be integer (not '{gloss_id}')")
-        view_url = self.page('show_gloss', gloss_id)
+        view_url = self.url('get_gloss', gloss_id)
         response = self.open(view_url)
         return map(
             lambda tag: [tag.get('id'), [*tag.contents, ''][0]],
             response.soup.select('div#definition .edit'),
         )
 
-    def edit_gloss(self, gloss_id, fields, values):
+    def set_gloss_value(self, gloss_id, fields, values):
         if not gloss_id.isdigit():
             raise SignbankError(f"GLOSS_ID must be numeric (not '{gloss_id}')")
-        view_url = self.page('show_gloss', gloss_id)
+        view_url = self.url('get_gloss', gloss_id)
         response = self.open(view_url)
         token    = self.get_csrf_token()
         print('Setting:')
-        modify_url = self.page('edit_gloss', gloss_id)
+        modify_url = self.url('set_gloss_value', gloss_id)
         for (field, value) in zip(fields, values):
             print(f"  {field}: '{value}'")
             self.browser.post(
@@ -654,9 +655,9 @@ def cmd_gloss(signbank, gloss_id, field = [], value = []):
     """
     signbank = Signbank(signbank, rcfile())
     if value:
-        signbank.edit_gloss(gloss_id, field, value)
+        signbank.set_gloss_value(gloss_id, field, value)
     else:
-        return signbank.show_gloss(gloss_id)
+        return signbank.get_gloss(gloss_id)
 
 def cmd_help(command = None, guide = None, raw = None, **_):
     """Show general help, help about a specific COMMAND, or a GUIDE.
