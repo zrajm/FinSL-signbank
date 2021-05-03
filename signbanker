@@ -62,7 +62,7 @@ def cmd_todo():
 
     """
 __title__     = 'signbanker (STS-Signbank)'
-__version__   = '1.1.2'                        # https://semver.org/
+__version__   = '1.2.0'                        # https://semver.org/
 __author__    = 'zrajm <zrajm@zrajm.org>'
 __copyright__ = 'Copyright (C) 2021 zrajm <zrajm@klingonska.org>'
 __license__   = 'GPLv2'
@@ -177,7 +177,11 @@ class Signbank:
             from getpass import getuser
             self.username = getuser()
         if not re.search(r'^\w+://', self.base_url): # set URL protocol
-            self.base_url = f'https://{self.base_url}'
+            # Add 'http' for localhost, 'https' for everything else.
+            self.base_url = '%s://%s' % (
+                'http' if re.search(r'\blocalhost\b', self.base_url) else 'https',
+                self.base_url
+            )
         if self.session_cookie:                # set browser session cookie
             self.set_cookie(
                 'sessionid',
