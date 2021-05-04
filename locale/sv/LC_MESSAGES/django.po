@@ -1,4 +1,4 @@
-# Swedish Signbank translation file.
+# STS Signbank translation file.
 # Copyright (C) 2020 by zrajm.
 # This file is distributed under the same license as the 'FinSL-signbank' package.
 # Translated 2020 by zrajm <zrajm@zrajm.org>.
@@ -1268,12 +1268,6 @@ msgstr "Du har tillgång till alla existerande lexikon."
 msgid "Gloss relations (Network Graph) "
 msgstr "Glosrelationer (nätverksgraf) "
 
-#: signbank/dictionary/templates/dictionary/network_graph.html:8
-#: templates/baselayout.html:9 templates/baselayout.html:79
-#: templates/baselayout.html:82
-msgid "Swedish Signbank"
-msgstr "Svensk teckenbank"
-
 #: signbank/dictionary/templates/dictionary/network_graph.html:31
 msgid "Choose"
 msgstr "Välj"
@@ -1285,13 +1279,6 @@ msgstr "Börja rendera"
 #: signbank/dictionary/templates/dictionary/network_graph.html:36
 msgid "Stop rendering"
 msgstr "Sluta rendera"
-
-#: signbank/dictionary/templates/dictionary/public_gloss_detail.html:10
-#: signbank/dictionary/templates/dictionary/public_gloss_detail.html:11
-#: templates/baselayout.html:18 templates/baselayout.html:19
-msgctxt "meta"
-msgid "Swedish Signbank"
-msgstr "Svensk teckenbank"
 
 #: signbank/dictionary/templates/dictionary/public_gloss_detail.html:54
 msgid "<em>No translations.</em>"
@@ -1838,8 +1825,8 @@ msgstr ""
 
 #: templates/baselayout.html:13 templates/baselayout.html:16
 msgctxt "meta"
-msgid "Swedish Signbank is a lexical database of Swedish Sign Language (STS)."
-msgstr "Svensk teckenbank är en lexikal databas över Svenskt Teckenspråk (STS)."
+msgid "STS Signbank is a lexical database of Swedish Sign Language (STS)."
+msgstr "STS Signbank är en lexikal databas över svenskt teckenspråk (STS)."
 
 #: templates/baselayout.html:92
 msgid "(No content)"

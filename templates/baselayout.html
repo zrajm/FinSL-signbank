@@ -6,17 +6,17 @@
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{LANGUAGE_CODE|default:'en'}}">
   <head>
-    <title>{% block bootstrap3_title %}{% endblock %}{% trans "Swedish Signbank" %}</title>
+    <title>{% block bootstrap3_title %}{% endblock %}STS Signbank</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    {% block metadesc %}<meta name="description" content="{% blocktrans context 'meta' %}Swedish Signbank is a lexical database of Swedish Sign Language (STS).{% endblocktrans %}">{% endblock %}
+    {% block metadesc %}<meta name="description" content="{% blocktrans context 'meta' %}STS Signbank is a lexical database of Swedish Sign Language (STS).{% endblocktrans %}">{% endblock %}
 
     {% block ogimage %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/signbank-logo-text.png' %}">{% endblock %}
-    {% block ogdesc %}<meta property="og:description" content="{% blocktrans context 'meta' %}Swedish Signbank is a lexical database of Swedish Sign Language (STS).{% endblocktrans %}">{% endblock %}
+    {% block ogdesc %}<meta property="og:description" content="{% blocktrans context 'meta' %}STS Signbank is a lexical database of Swedish Sign Language (STS).{% endblocktrans %}">{% endblock %}
     {% block metatitles %}
-    <meta property="og:title" content="{% trans "Swedish Signbank" context "meta" %}">
-    <meta name="twitter:title" content="{% trans "Swedish Signbank" context "meta" %}">
+    <meta property="og:title" content="STS Signbank">
+    <meta name="twitter:title" content="STS Signbank">
     {% endblock %}
 <script type="application/ld+json">
 // Structured data for Google
@@ -76,9 +76,9 @@
             <header id="header" class=bg-primary>{# Translators: Site title #}
                 <div class="headerlogo">
                     <h1>
-                        <a href="{% url 'root_page' %}" title="{% trans "Swedish Signbank" %}">
-                            <img id="logoheadersignbank" style="margin-left:.25em" src="{% static 'img/signbank-logo.svg' %}" alt="{% trans "Swedish Signbank" %}"></a>
-                        <span style="margin-left:0">{% trans "Swedish Signbank" %}</span>
+                        <a href="{% url 'root_page' %}" title="STS Signbank">
+                            <img id="logoheadersignbank" style="margin-left:.25em" src="{% static 'img/signbank-logo.svg' %}" alt="STS Signbank"></a>
+                        <span style="margin-left:0">STS Signbank</span>
                     </h1>
                 </div>
                 <div id="langbar">{% include "langbar.html" %}</div>
@@ -108,11 +108,11 @@
                       </a>
                     <td style="text-align:left;padding-left:.5em">
                       {% if LANGUAGE_CODE == 'sv' %}
-                        Svensk teckenbank skapades och underhålls av: <a href="http://www.ling.su.se/teckenspr%C3%A5k" target="_blank">Avdelningen för teckenspråk, Institutionen för lingvistik, Stockholms universitet</a>.
+                        STS Signbank skapades och underhålls av: <a href="http://www.ling.su.se/teckenspr%C3%A5k" target="_blank">Avdelningen för teckenspråk, Institutionen för lingvistik, Stockholms universitet</a>.
                         <br>Licens för innehållet:
                         <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/se/" target="_blank">Creative Commons Erkännande/icke-kommersiell/dela-lika 2.5</a>. Licens för källkod: <a href="https://github.com/zrajm/FinSL-signbank/blob/master/LICENSE" target="_blank">3-klausulig BSD-Licens</a>.
                       {% else %}
-                        Swedish Signbank created and maintained by: <a href="https://www.ling.su.se/english/sign-language-section" target="_blank">Sign Language Section, Department of Linguistics, Stockholm university</a>.
+                        STS Signbank created and maintained by: <a href="https://www.ling.su.se/english/sign-language-section" target="_blank">Sign Language Section, Department of Linguistics, Stockholm university</a>.
                         <br>Content license:
                         <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank">Creative Commons Attribution/Non-Commercial/Share-Alike 2.5</a>. Source code license: <a href="https://github.com/zrajm/FinSL-signbank/blob/master/LICENSE" target="_blank">3-Clause BSD License</a>.
                       {% endif %}
